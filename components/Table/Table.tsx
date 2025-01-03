@@ -1,22 +1,22 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { DataItem } from "./TableType";
+import { DataItem, TableProps } from "./TableType";
 
-export default function Tabla() {
+export default function Table( props: TableProps) {
   const [data, setData] = useState<DataItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { start, end, id, field } = props;
 
   useEffect(() => {
     const fetchDatos = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:8000/api/test/1");
+        const response = await fetch(`http://127.0.0.1:8000/api/test/${id}/${start}/${end}`);
         if (!response.ok) {
           throw new Error("Error al obtener los datos");
         }
         const data = await response.json();
         setData(data);
-        console.log(data);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -25,15 +25,15 @@ export default function Tabla() {
     };
 
     fetchDatos();
-  }, []);
+  }, [start, end, id]);
   function getColorClass(value: string) {
     switch (value) {
       case "Disponible":
         return "bg-blue-800";
-      case "Ocupado":
+      case "Reservado":
         return "bg-red-800";
       default:
-        return "bg-gray-800"; // Clase predeterminada para valores no coincidentes
+        return "bg-gray-800"; 
     }
   }
 
@@ -60,7 +60,7 @@ export default function Tabla() {
           <tr key={index}>
             {index === 0 && (
               <td rowSpan={data.length} className="rotate-90 border">
-                <div className="w-20">Campo 1</div>
+                <div className="w-20">{field}</div>
               </td>
             )}
             <td className="border px-4 py-2 text-xs">{item.hour}</td>

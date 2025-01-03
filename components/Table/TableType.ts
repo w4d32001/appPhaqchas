@@ -8,3 +8,10 @@ export interface DataItem {
     Sabado: string;
     Domingo: string;
   }
+
+export type TableProps = {
+    start: any,
+    end: any,
+    id: any,
+    field: string
+}

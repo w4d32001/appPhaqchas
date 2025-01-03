@@ -37,29 +37,41 @@ export default function Navbar() {
         isScrolled ? 'bg-gray-800' : 'bg-transparent'
       }`}
     >
-      <Link href="" className="uppercase text-2xl flex items-center gap-2">
+      <Link href="#Inicio" className={`uppercase text-2xl flex items-center gap-2 ${activeLink === 'Inicio' ? 'text-gray-100' : ''}`}>
         <img src="/volleyball.png" alt="" className="w-10" />
         <h1 className="text-shadow-heavy font-Bebas-Neue">Phaqchas</h1>
       </Link>
       <div className="mt-4 md:mt-0">
-        <ul className="flex flex-col md:flex-row gap-4 font-sans">
+        <ul className="flex flex-row gap-4 text-xl font-sans items-center">
           <li>
-            <Link href="" className="text-shadow-heavy">
+            <Link
+              href="#Inicio"
+              className={`text-shadow-heavy ${activeLink === 'Inicio' ? 'text-bold underline' : ''}`}
+            >
               Inicio
             </Link>
           </li>
           <li>
-            <Link href="" className="text-shadow-heavy">
+            <Link
+              href="#DondeEstamos"
+              className={`text-shadow-heavy ${activeLink === 'DondeEstamos' ? 'text-bold underline' : ''}`}
+            >
               Donde Estamos
             </Link>
           </li>
           <li>
-            <Link href="" className="text-shadow-heavy">
+            <Link
+              href="#Disponibilidad"
+              className={`text-shadow-heavy ${activeLink === 'Disponibilidad' ? 'text-bold underline' : ''}`}
+            >
               Disponibilidad
             </Link>
           </li>
           <li>
-            <Link href="" className="text-shadow-heavy">
+            <Link
+              href="#Deportes"
+              className={`text-shadow-heavy ${activeLink === 'Deportes' ? 'text-bold underline' : ''}`}
+            >
               Deportes
             </Link>
           </li>
@@ -67,10 +79,16 @@ export default function Navbar() {
       </div>
       <div className="flex flex-col md:flex-row gap-4 items-center mt-4 md:mt-0">
         <Link href="auth/login">
-          <Avatar>
+        <Button className="bg-gray-700 hover:bg-gray-800 font-sans transition-all ">
+          Iniciar Sesión
+        </Button>
+        <div className="hidden">
+        <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
+        </div>
+          
         </Link>
         <Button className="bg-red-700 hover:bg-red-800 font-sans transition-all">
           Cerrar Sesión
