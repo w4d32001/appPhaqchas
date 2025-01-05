@@ -28,7 +28,7 @@ export default function Home() {
             </SheetContent>
           </Sheet>
         </div>
-        <section id="Inicio" className="h-[calc(100svh-80px)] md:h-svh">
+        <section id="Inicio" className="h-[calc(100svh-80px)] lg:h-svh">
           <div className="flex justify-center items-center h-5/6">
             <div className="text-center">
               <h1 className="text-[70px] text-shadow-heavy font-Bebas-Neue text-gray-200">
@@ -58,7 +58,7 @@ export default function Home() {
           </span>
         </div>
         <section id="Disponibilidad">
-          <div className="py-8 px-2 bg-blue-gradient flex gap-2 items-center">
+          <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={1} field="Campo 1" />
             <div>
               <img
@@ -68,7 +68,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="py-8 px-2 bg-blue-gradient flex gap-2 items-center">
+          <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={2} field="Campo 2" />
             <div>
               <img
@@ -78,7 +78,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="py-8 px-2 bg-blue-gradient flex gap-2 items-center">
+          <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={3} field="Campo 3" />
             <div>
               <img
@@ -88,7 +88,7 @@ export default function Home() {
               />
             </div>
           </div>
-          <div className="py-8 px-2 bg-blue-gradient flex gap-2 items-center">
+          <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={4} field="Campo 4" />
             <div>
               <img
@@ -105,12 +105,11 @@ export default function Home() {
               Nos puedes encontrar en...
             </span>
           </div>
-          <div className="py-8 px-4  grid grid-cols-1 md:grid-cols-3 gap-2 items-center h-auto">
+          <div className="py-4 px-4  grid grid-cols-1 md:grid-cols-3 gap-2 items-center h-auto">
             <div className="bg-[#10192E] text-white p-4 rounded-xl h-full flex flex-col justify-around">
               <h2 className="text-[#6893cc] text-center text-3xl">Ubicación</h2>
               <p>
-                Estamos ubicados con nuestra sede principal en la provincia de
-                abancay a 5 minutos de la plaza caida
+              Nos encontramos en la provincia de Abancay, en la intersección de Prolongación Arica con la calle Horacio Zeballos, a 5 minutos del parque Señor de la Caída.
               </p>
               <div className="flex items-center justify-center">
                 <button className="bg-[#6893cc] rounded-xl text-white py-3 px-5 hover:bg-[#6893cc]/90 transition-colors">

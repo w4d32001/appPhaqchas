@@ -55,7 +55,6 @@ export default function Page() {
       const data = await response.json();
       console.log(data)
       localStorage.setItem("token", data.access_token); 
-      router.push("/"); 
       try {
         const userDataResponse = await fetch("http://127.0.0.1:8000/api/auth/me", {
           method: "POST",
@@ -70,9 +69,12 @@ export default function Page() {
           console.error('Error detallado:', errorText);
           throw new Error('Error al obtener los datos del usuario');
         }
-      
         const userData = await userDataResponse.json();
         console.log(userData);
+
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        router.push("/"); 
       
       } catch (error: any) {
         console.error("Error al obtener los datos del usuario:", error.message);
@@ -96,8 +98,7 @@ export default function Page() {
         <div className="text-white w-full px-8 py-10 gap-10 flex flex-col items-center col-span-1">
           <h2 className="uppercase text-3xl">Phaqchas</h2>
           <span className="text-center font-sans">
-            Inicia sesión para la disponibilidad de horarios deportes,
-            promociones y más noticias
+          Inicia sesión para acceder a promociones y más noticias.
           </span>
           <div className="w-full flex flex-col gap-y-10">
             <form onSubmit={handleLogin}>
