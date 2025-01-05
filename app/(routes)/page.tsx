@@ -6,6 +6,7 @@ import NavbarMd from "@/components/NavbarMd/NavbarMd";
 import Table from "@/components/Table/Table";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ArrowRight, Menu } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -41,7 +42,7 @@ export default function Home() {
           </div>
           <div className="flex items-center h-1/6 justify-center">
             <button className="bg-green-700 hover:bg-green-800 transition-all shadow-lg text-xl md:text-3xl px-4 md:px-8 py-2 font-sans text-white rounded-lg">
-              Consultar disponibilidad
+              <Link href="#Disponibilidad">Consultar disponibilidad</Link>
             </button>
           </div>
         </section>
@@ -112,9 +113,9 @@ export default function Home() {
               Nos encontramos en la provincia de Abancay, en la intersección de Prolongación Arica con la calle Horacio Zeballos, a 5 minutos del parque Señor de la Caída.
               </p>
               <div className="flex items-center justify-center">
-                <button className="bg-[#6893cc] rounded-xl text-white py-3 px-5 hover:bg-[#6893cc]/90 transition-colors">
+                <Link href="https://www.google.com/maps/@-13.6300254,-72.8793525,19z/data=!5m2!1e4!1e1?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D" className="bg-[#6893cc] rounded-xl text-white py-3 px-5 hover:bg-[#6893cc]/90 transition-colors" target="_blank">
                   Abrir en Google Maps
-                </button>
+                </Link>
               </div>
             </div>
             <div className="col-span-2">

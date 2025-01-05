@@ -138,7 +138,7 @@ export default function Navbar() {
             </Link>
             <Link href="auth/register">
               <Button className="bg-gray-700 hover:bg-gray-800 font-sans transition-all">
-                Registrar
+                Registrarse
               </Button>
             </Link>
           </div>
