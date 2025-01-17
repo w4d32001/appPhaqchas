@@ -30,6 +30,7 @@ export default {
 		},
 		fontFamily: {
 			'Bebas-Neue': ['Sour Gummy', 'sans-serif'],
+			'julius': ['Julius Sans One', 'sans-serif']
 		}
   	}
   },

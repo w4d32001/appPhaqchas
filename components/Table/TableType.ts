@@ -10,8 +10,8 @@ export interface DataItem {
   }
 
 export type TableProps = {
-    start: any,
-    end: any,
-    id: any,
+    start: string,
+    end: string,
+    id: number,
     field: string
 }

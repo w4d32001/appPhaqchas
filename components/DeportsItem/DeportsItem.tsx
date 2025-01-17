@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { DeportsProps } from "./DeportsItem.types";
+import Image from "next/image";
 
 export default function DeportsItem(props: DeportsProps) {
   const { items } = props;
@@ -8,7 +9,7 @@ export default function DeportsItem(props: DeportsProps) {
   return (
     <Card className="bg-gray-300 border-none shadow-2xl">
       <CardContent className="py-4 text-gray-900 space-y-4">
-        <img
+        <Image
           src={img}
           alt={title}
           className="w-full h-48 object-cover rounded-t-lg mb-4"

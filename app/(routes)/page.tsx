@@ -3,9 +3,9 @@ import Deports from "@/components/Deports/Deports";
 import Logo from "@/components/Logo/Logo";
 import Navbar from "@/components/Navbar/Navbar";
 import NavbarMd from "@/components/NavbarMd/NavbarMd";
-import Table from "@/components/Table/Table";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { ArrowRight, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -16,11 +16,11 @@ export default function Home() {
         <div className="hidden lg:block">
           <Navbar />
         </div>
-        <div className="lg:hidden flex items-center justify-between w-svw  h-20 px-4">
+        <div className="lg:hidden bg-red-50d flex items-center justify-between w-svw  h-20 px-5  pr-8">
           <Logo />
           <Sheet>
             <SheetTrigger>
-              <Menu strokeWidth={2} className="text-white" />
+              <Menu strokeWidth={2} className="text-white text-3xl" />
             </SheetTrigger>
             <SheetContent className="bg-gray-800">
               <div className="">
@@ -32,16 +32,16 @@ export default function Home() {
         <section id="Inicio" className="h-[calc(100svh-80px)] lg:h-svh">
           <div className="flex justify-center items-center h-5/6">
             <div className="text-center">
-              <h1 className="text-[70px] text-shadow-heavy font-Bebas-Neue text-gray-200">
+              <h1 className="text-[150px] text-shadow-heavy font-julius text-gray-200">
                 Phaqchas
               </h1>
               <p className="text-gray-200 text-shadow-heavy font-sans text-md md:text-xl">
-                Campo deportivo inspirado para que los jovenes hagan deporte
+                Fuente de energía
               </p>
             </div>
           </div>
           <div className="flex items-center h-1/6 justify-center">
-            <button className="bg-green-700 hover:bg-green-800 transition-all shadow-lg text-xl md:text-3xl px-4 md:px-8 py-2 font-sans text-white rounded-lg">
+            <button className="bg-blue-900 hover:bg-blue-900 transition-all shadow-3xl border border-white text-xl md:text-3xl px-4 md:px-8 py-2 font-Bebas-Neue text-white rounded-lg">
               <Link href="#Disponibilidad">Consultar disponibilidad</Link>
             </button>
           </div>
@@ -61,8 +61,8 @@ export default function Home() {
         <section id="Disponibilidad">
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={1} field="Campo 1" />
-            <div>
-              <img
+            <div className="hidden xl:block">
+              <Image
                 src="/assets/siluetavolley.png"
                 alt=""
                 className="invert brightness-200"
@@ -71,8 +71,8 @@ export default function Home() {
           </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={2} field="Campo 2" />
-            <div>
-              <img
+            <div className="hidden xl:block">
+              <Image
                 src="/assets/siluetavolley.png"
                 alt=""
                 className="invert brightness-200"
@@ -81,8 +81,8 @@ export default function Home() {
           </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={3} field="Campo 3" />
-            <div>
-              <img
+            <div className="hidden xl:block">
+              <Image
                 src="/assets/siluetavolley.png"
                 alt=""
                 className="invert brightness-200"
@@ -91,8 +91,8 @@ export default function Home() {
           </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={4} field="Campo 4" />
-            <div>
-              <img
+            <div className="hidden xl:block">
+              <Image
                 src="/assets/siluetavolley.png"
                 alt=""
                 className="invert brightness-200"
@@ -119,7 +119,7 @@ export default function Home() {
               </div>
             </div>
             <div className="col-span-2">
-              <img
+              <Image
                 src="/assets/maps.png"
                 alt=""
                 className="object-cover rounded-xl"

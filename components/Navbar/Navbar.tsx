@@ -3,21 +3,21 @@ import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState("");
+  const [user, setUser] = useState("");
 
   useEffect(() => {
-    // Check if the user is logged in by checking the localStorage for a token
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
       const user = localStorage.getItem("user");
       if (user) {
-        setUsername(user);
+        setUser(user);
         console.log(user);
       }
     } else {
@@ -47,11 +47,10 @@ export default function Navbar() {
   }, []);
 
   const handleLogout = () => {
-    // Clear localStorage and set the logged-in state to false
     localStorage.removeItem("token");
     localStorage.removeItem("name");
     setIsLoggedIn(false);
-    setUsername("");
+    setUser("");
   };
 
   return (
@@ -66,7 +65,7 @@ export default function Navbar() {
           activeLink === "Inicio" ? "text-gray-100" : ""
         }`}
       >
-        <img src="/volleyball.png" alt="" className="w-10" />
+        <Image src="/volleyball.png" alt="" className="w-10" />
         <h1 className="text-shadow-heavy font-Bebas-Neue">Phaqchas</h1>
       </Link>
       <div className="mt-4 md:mt-0">
@@ -119,7 +118,7 @@ export default function Navbar() {
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>
-                {username && username.charAt(0).toUpperCase()}
+                {user && user}
               </AvatarFallback>
             </Avatar>
             <Button

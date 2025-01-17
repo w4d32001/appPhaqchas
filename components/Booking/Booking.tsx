@@ -10,9 +10,9 @@ export default function Booking(props: BookingProps) {
   const [currentWeekStart, setCurrentWeekStart] = useState(new Date());
   const { id, field } = props;
 
-  const getWeekRange = (weekStart: any) => {
-    const startOfThisWeek = startOfWeek(weekStart, { weekStartsOn: 1 });
-    const endOfThisWeek = endOfWeek(weekStart, { weekStartsOn: 1 });
+  const getWeekRange = (weekStart: Date ) => {
+    const startOfThisWeek = startOfWeek(new Date(weekStart), { weekStartsOn: 1 });
+    const endOfThisWeek = endOfWeek(new Date(weekStart), { weekStartsOn: 1 });
 
     return {
       start: format(startOfThisWeek, "yyyy-MM-dd"),
@@ -41,7 +41,7 @@ export default function Booking(props: BookingProps) {
           className="text-white rounded-xl bg-blue-700 hover:bg-blue-900/90 py-2 transition-colors px-4 text-xl flex items-center justify-between"
         >
           <ArrowLeft strokeWidth={2} />
-          Semana anterior
+          <span className="hidden md:block">Semana anterior</span>
         </button>
         <h1 className="text-white">
           {format(new Date(weekRange.start), "dd MMMM yyyy", { locale: es })} a{" "}
@@ -51,7 +51,7 @@ export default function Booking(props: BookingProps) {
           onClick={goToNextWeek}
           className="text-white rounded-xl bg-blue-700 hover:bg-blue-900/90 py-2 transition-colors px-4 text-xl flex items-center justify-between"
         >
-          Siguiente semana <ArrowRight strokeWidth={2} />
+          <span className="hidden md:block">Siguiente semana</span> <ArrowRight strokeWidth={2} />
         </button>
       </div>
       <div className="min-w-full overflow-x-auto">

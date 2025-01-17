@@ -5,20 +5,23 @@ import { DataItem, TableProps } from "./TableType";
 export default function Table( props: TableProps) {
   const [data, setData] = useState<DataItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
   const { start, end, id, field } = props;
 
   useEffect(() => {
     const fetchDatos = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/test/${id}/${start}/${end}`);
+        const response = await fetch(`http://127.0.0.1:8000/api/bookingsForLandingPage/${id}/${start}/${end}`);
+        console.log(start)
         if (!response.ok) {
           throw new Error("Error al obtener los datos");
         }
         const data = await response.json();
         setData(data);
-      } catch (err: any) {
-        setError(err.message);
+      } catch (error: unknown) {
+        if(error instanceof Error ){
+          setError(error.message);
+        }
       } finally {
         setLoading(false);
       }
@@ -28,12 +31,14 @@ export default function Table( props: TableProps) {
   }, [start, end, id]);
   function getColorClass(value: string) {
     switch (value) {
-      case "Disponible":
+      case "disponible":
         return "bg-blue-800";
-      case "Reservado":
-        return "bg-red-800";
+      case "reservado":
+        return "bg-green-600";
+      case "en espera":
+        return "bg-yellow-500";
       default:
-        return "bg-gray-800"; 
+        return "bg-gray-600"; 
     }
   }
 
@@ -64,13 +69,13 @@ export default function Table( props: TableProps) {
               </td>
             )}
             <td className="border px-4 py-2 text-xs">{item.hour}</td>
-            <td className={`border px-4 py-2 text-xs ${getColorClass(item.Lunes)}`}>{item.Lunes}</td>
-            <td className={`border px-4 py-2 text-xs ${getColorClass(item.Martes)}`}>{item.Martes}</td>
-            <td className={`border px-4 py-2 text-xs ${getColorClass(item.Miercoles)}`}>{item.Miercoles}</td>
-            <td className={`border px-4 py-2 text-xs ${getColorClass(item.Jueves)}`}>{item.Jueves}</td>
-            <td className={`border px-4 py-2 text-xs ${getColorClass(item.Viernes)}`}>{item.Viernes}</td>
-            <td className={`border px-4 py-2 text-xs ${getColorClass(item.Sabado)}`}>{item.Sabado}</td>
-            <td className={`border px-4 py-2 text-xs ${getColorClass(item.Domingo)}`}>{item.Domingo}</td>
+            <td className={`border px-4 py-2 text-xs text-center capitalize ${getColorClass(item.Lunes)}`}>{item.Lunes}</td>
+            <td className={`border px-4 py-2 text-xs text-center capitalize ${getColorClass(item.Martes)}`}>{item.Martes}</td>
+            <td className={`border px-4 py-2 text-xs text-center capitalize ${getColorClass(item.Miercoles)}`}>{item.Miercoles}</td>
+            <td className={`border px-4 py-2 text-xs text-center capitalize ${getColorClass(item.Jueves)}`}>{item.Jueves}</td>
+            <td className={`border px-4 py-2 text-xs text-center capitalize ${getColorClass(item.Viernes)}`}>{item.Viernes}</td>
+            <td className={`border px-4 py-2 text-xs text-center capitalize ${getColorClass(item.Sabado)}`}>{item.Sabado}</td>
+            <td className={`border px-4 py-2 text-xs text-center capitalize ${getColorClass(item.Domingo)}`}>{item.Domingo}</td>
           </tr>
         ))}
       </tbody>

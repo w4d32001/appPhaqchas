@@ -6,13 +6,11 @@ import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo/Logo';
 
 export default function NavbarMd() {
-    const [isScrolled, setIsScrolled] = useState(false);
     const [activeLink, setActiveLink] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [username, setUsername] = useState('');
 
     useEffect(() => {
-        // Check if the user is logged in by checking the localStorage for a token
         const token = localStorage.getItem("token");
         if (token) {
             setIsLoggedIn(true);
@@ -25,12 +23,6 @@ export default function NavbarMd() {
         }
 
         const handleScroll = () => {
-            if (window.scrollY > 50) {
-                setIsScrolled(true);
-            } else {
-                setIsScrolled(false);
-            }
-
             const sections = document.querySelectorAll('section');
             sections.forEach((section) => {
                 const rect = section.getBoundingClientRect();
@@ -47,7 +39,7 @@ export default function NavbarMd() {
     }, []);
 
     const handleLogout = () => {
-        // Clear localStorage and set the logged-in state to false
+        
         localStorage.removeItem("token");
         localStorage.removeItem("user");
         setIsLoggedIn(false);

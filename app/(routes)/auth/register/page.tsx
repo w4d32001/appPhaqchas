@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
 import React, { useState } from "react";
-import InGroup from "@/components/InGroup/InGroup";
 import { useRouter } from "next/navigation";
 import { toast, ToastContainer } from 'react-toastify'; 
 import 'react-toastify/dist/ReactToastify.css';
+import Input from "@/components/Input/Input";
+import Image from "next/image";
 
-export default function page() {
+export default function Page() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
@@ -128,9 +129,14 @@ export default function page() {
           
         
         
-        } catch (error: any) {
-          console.error("Error al obtener los datos del usuario:", error.message);
-          alert(`Error: ${error.message}`);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error("Error al obtener los datos del usuario:", error.message);
+                alert(`Error: ${error.message}`);
+              } else {
+                console.error("Error desconocido:", error);
+                alert("Ocurrió un error inesperado.");
+              }
         }
       } else {
         if (data.errors) {
@@ -146,11 +152,14 @@ export default function page() {
           }));console.log(data)
         }
       }
-    } catch (err) {
-      setErrors((prev) => ({
-        ...prev,
-        general: "Error de red, intenta nuevamente.",
-      }));
+    } catch (error: unknown) {
+        if(error instanceof Error){
+            setErrors((prev) => ({
+                ...prev,
+                general: `Error: ${error.message}`,
+              }));
+        }
+      
     }
   };
   return (
@@ -166,13 +175,13 @@ export default function page() {
               <div className="flex flex-col gap-2">
                 <div className="flex w-full gap-2 md:flex-row md:gap-4">
                   <div className="w-1/2">
-                    <InGroup
+                    <Input
                       type="text"
                       name="name"
                       placeholder="Juan"
                       label="Nombre"
                       value={name}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
                     />
                     {errors.name && (
                       <span className="text-red-600 text-sm">
@@ -181,13 +190,13 @@ export default function page() {
                     )}
                   </div>
                   <div className="w-1/2">
-                    <InGroup
+                    <Input
                       type="text"
                       name="surname"
                       placeholder="Perez"
                       label="Apellido"
                       value={surname}
-                      onChange={(e) => setSurname(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSurname(e.target.value)}
                     />
                     {errors.surname && (
                       <span className="text-red-600 text-sm">
@@ -196,24 +205,24 @@ export default function page() {
                     )}
                   </div>
                 </div>
-                <InGroup
+                <Input
                   type="email"
                   name="email"
                   placeholder="ejemplo@gmail.com"
                   label="Correo electrónico"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
                 />
                 {errors.email && (
                   <span className="text-red-600 text-sm">{errors.email}</span>
                 )}
-                <InGroup
+                <Input
                   type="password"
                   name="password"
                   placeholder="*********"
                   label="Contraseña"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 />
                 {errors.password && (
                   <span className="text-red-600 text-sm">
@@ -222,13 +231,13 @@ export default function page() {
                 )}
                 <div className="flex w-full gap-2 md:gap-4">
                   <div className="w-1/2">
-                    <InGroup
+                    <Input
                       type="text"
                       name="phone"
                       placeholder="987564123"
                       label="Celular"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
                     />
                     {errors.phone && (
                       <span className="text-red-600 text-sm">
@@ -237,13 +246,13 @@ export default function page() {
                     )}
                   </div>
                   <div className="w-1/2">
-                    <InGroup
+                    <Input
                       type="text"
                       name="dni"
                       placeholder="85632147"
                       label="DNI"
                       value={dni}
-                      onChange={(e) => setDni(e.target.value)}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDni(e.target.value)}
                     />
                     {errors.dni && (
                       <span className="text-red-600 text-sm">{errors.dni}</span>
@@ -271,7 +280,7 @@ export default function page() {
           </div>
         </div>
         <div className="hidden h-auto col-span-2 lg:flex  items-center">
-          <img
+          <Image
             src="/assets/voley1.jpg"
             alt=""
             className="h-[calc(100vh-2px)] w-full object-cover rounded-lg shadow-xl"

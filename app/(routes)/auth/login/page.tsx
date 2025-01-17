@@ -1,96 +1,13 @@
 'use client'
 import Link from "next/link";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import InGroup from "@/components/InGroup/InGroup";
+import React from "react";
+import { useAuth } from "@/hooks/useAuth";
+import Input from "@/components/Input/Input";
+import Image from "next/image";
 
 export default function Page() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({ email: "", password: "", general: "" });
-  const router = useRouter();
-
-  const validateInputs = (): boolean => {
-    const newErrors = { email: "", password: "", general: "" };
-
-    if (!email.trim()) {
-      newErrors.email = "El correo electrónico es obligatorio.";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = "Por favor, ingresa un correo válido.";
-    }
-
-    if (!password.trim()) {
-      newErrors.password = "La contraseña es obligatoria.";
-    } else if (password.length < 6) {
-      newErrors.password = "La contraseña debe tener al menos 6 caracteres.";
-    }
-
-    setErrors(newErrors);
-    return !newErrors.email && !newErrors.password;
-  };
-
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!validateInputs()) return;
-
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        setErrors((prev) => ({
-          ...prev,
-          general: errorData.message || "Error al iniciar sesión",
-        }));
-        return;
-      }
-
-      const data = await response.json();
-      console.log(data)
-      localStorage.setItem("token", data.access_token); 
-      try {
-        const userDataResponse = await fetch("http://127.0.0.1:8000/api/auth/me", {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            "Authorization": `Bearer ${data.access_token}`,
-          },
-        });
-      
-        if (!userDataResponse.ok) {
-          const errorText = await userDataResponse.text();
-          console.error('Error detallado:', errorText);
-          throw new Error('Error al obtener los datos del usuario');
-        }
-        const userData = await userDataResponse.json();
-        console.log(userData);
-
-        localStorage.setItem("user", JSON.stringify(userData));
-
-        router.push("/"); 
-      
-      } catch (error: any) {
-        console.error("Error al obtener los datos del usuario:", error.message);
-        alert(`Error: ${error.message}`);
-      }
-      
-      
-  
-      
-    } catch (err) {
-      setErrors((prev) => ({
-        ...prev,
-        general: "Error de red, intenta nuevamente.",
-      }));
-    }
-  };
+  // 
+  const { dni, setDni, password, setPassword, errors, handleLogin } = useAuth()
 
   return (
     <div className="bg-custom-gradient h-svh overflow-y-hidden">
@@ -103,24 +20,24 @@ export default function Page() {
           <div className="w-full flex flex-col gap-y-10">
             <form onSubmit={handleLogin}>
               <div className="flex flex-col gap-4">
-                <InGroup
-                  type="email"
-                  name="email"
+                <Input
+                  type="text"
+                  name="dni"
                   placeholder="ejemplo@gmail.com"
                   label="Correo electrónico"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  value={dni}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDni(e.target.value)}
                 />
-                {errors.email && (
-                  <span className="text-red-600 text-sm">{errors.email}</span>
+                {errors.dni && (
+                  <span className="text-red-600 text-sm">{errors.dni}</span>
                 )}
-                <InGroup
+                <Input
                   type="password"
                   name="password"
                   placeholder="*********"
                   label="Contraseña"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 />
                 {errors.password && (
                   <span className="text-red-600 text-sm">{errors.password}</span>
@@ -151,7 +68,7 @@ export default function Page() {
           </div>
         </div>
         <div className="hidden lg:block h-screen col-span-2">
-          <img
+          <Image
             src="/assets/voley1.jpg"
             alt=""
             className="h-[calc(100vh-32px)] w-full object-cover rounded-lg shadow-xl"
