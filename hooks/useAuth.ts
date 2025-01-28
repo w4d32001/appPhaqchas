@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { loginUser, fetchUserData } from "@/services/auth.service";
+import Swal from "sweetalert2";
+
+export interface BackendError {
+  message?: string;
+  errors?: Record<string, string[]>;
+}
 
 export const useAuth = () => {
   const [dni, setDni] = useState("");
@@ -13,7 +19,7 @@ export const useAuth = () => {
 
     if (!dni.trim()) {
       newErrors.dni = "El dni es obligatorio.";
-    } else if (dni.length != 8) {
+    } else if (dni.length !== 8) {
       newErrors.dni = "Por favor, ingresa un dni válido.";
     }
 
@@ -39,20 +45,42 @@ export const useAuth = () => {
       const userData = await fetchUserData(access_token);
       localStorage.setItem("user", JSON.stringify(userData));
 
-      router.push("/");
-      console.log()
+      Swal.fire({
+        title: '¡Bienvenido a Phaqchas!',
+        icon: 'success',
+        toast: true, 
+        position: 'top-end', 
+        showConfirmButton: false, 
+        timer: 3000, 
+        timerProgressBar: true,
+      });
+
+      router.push("/"); 
     } catch (error: unknown) {
-      if (error instanceof Error) {
-        setErrors((prev) => ({
-          ...prev,
-          general: error.message || "Error de red, intenta nuevamente.",
-        }));
-        console.log(error)
+      const backendError = error as BackendError;
+
+      if (backendError.errors) {
+        const errorMessages = Object.entries(backendError.errors)
+          .map(([field, messages]) => `${field}: ${messages.join(", ")}`)
+          .join("\n");
+
+        Swal.fire({
+          icon: "error",
+          title: backendError.message || "Error al iniciar sesión",
+          toast: true, 
+          position: 'top-end', 
+          showConfirmButton: false, 
+          timer: 3000, 
+          timerProgressBar: true,
+          text: errorMessages,
+        });
       } else {
-        console.error("Error desconocido:", error);
-        alert("Ocurrió un error inesperado.");
+        Swal.fire({
+          icon: "error",
+          title: "Error al iniciar sesión",
+          text: backendError.message || "Ocurrió un error inesperado. Inténtalo nuevamente.",
+        });
       }
-      
     }
   };
 

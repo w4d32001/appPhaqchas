@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import Image from "next/image";
+import { User } from "@/services/auth.service";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState<User>({} as User);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -17,8 +18,7 @@ export default function Navbar() {
       setIsLoggedIn(true);
       const user = localStorage.getItem("user");
       if (user) {
-        setUser(user);
-        console.log(user);
+        setUser(JSON.parse(user));  
       }
     } else {
       setIsLoggedIn(false);
@@ -49,8 +49,9 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("name");
+    localStorage.removeItem("user");
     setIsLoggedIn(false);
-    setUser("");
+    setUser({} as User);
   };
 
   return (
@@ -65,7 +66,7 @@ export default function Navbar() {
           activeLink === "Inicio" ? "text-gray-100" : ""
         }`}
       >
-        <Image src="/volleyball.png" alt="" className="w-10" />
+        <Image src="/volleyball.png" alt="" className="w-10" width={1} height={2}/>
         <h1 className="text-shadow-heavy font-Bebas-Neue">Phaqchas</h1>
       </Link>
       <div className="mt-4 md:mt-0">
@@ -82,14 +83,15 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="#DondeEstamos"
+              href="#Deportes"
               className={`text-shadow-heavy ${
-                activeLink === "DondeEstamos" ? "text-bold underline" : ""
+                activeLink === "Deportes" ? "text-bold underline" : ""
               }`}
             >
-              Donde Estamos
+              Deportes
             </Link>
           </li>
+          
           <li>
             <Link
               href="#Disponibilidad"
@@ -100,30 +102,35 @@ export default function Navbar() {
               Disponibilidad
             </Link>
           </li>
+
           <li>
             <Link
-              href="#Deportes"
+              href="#DondeEstamos"
               className={`text-shadow-heavy ${
-                activeLink === "Deportes" ? "text-bold underline" : ""
+                activeLink === "DondeEstamos" ? "text-bold underline" : ""
               }`}
             >
-              Deportes
+              Donde Estamos
             </Link>
           </li>
+          
         </ul>
       </div>
       <div className="flex flex-col md:flex-row gap-4 items-center mt-4 md:mt-0">
         {isLoggedIn ? (
           <>
+            <div className="flex items-center gap-4 bg-gray-900/30 py-1 px-4 rounded-lg">
             <Avatar>
               <AvatarImage src="https://github.com/shadcn.png" />
               <AvatarFallback>
-                {user && user}
+                {user.name}
               </AvatarFallback>
             </Avatar>
+            <span className="capitalize">{user.name}</span>
+            </div>
             <Button
               onClick={handleLogout}
-              className="bg-red-700 hover:bg-red-800 font-sans transition-all"
+              className="bg-red-700 py-2 px-4 hover:bg-red-800 font-sans transition-all"
             >
               Cerrar Sesión
             </Button>

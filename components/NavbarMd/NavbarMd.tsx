@@ -4,11 +4,12 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo/Logo';
+import { User } from '@/services/auth.service';
 
 export default function NavbarMd() {
     const [activeLink, setActiveLink] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username, setUsername] = useState('');
+    const [user, setUser] = useState<User>({} as User);
 
     useEffect(() => {
         const token = localStorage.getItem("token");
@@ -16,7 +17,7 @@ export default function NavbarMd() {
             setIsLoggedIn(true);
             const user = localStorage.getItem("user");
             if (user) {
-                setUsername(user);
+                setUser(JSON.parse(user));  
             }
         } else {
             setIsLoggedIn(false);
@@ -41,16 +42,17 @@ export default function NavbarMd() {
     const handleLogout = () => {
         
         localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        setIsLoggedIn(false);
-        setUsername('');
+            localStorage.removeItem("name");
+            localStorage.removeItem("user");
+            setIsLoggedIn(false);
+            setUser({} as User);
     };
 
     return (
-        <nav className={`w-full h-svh flex flex-col justify-between py-8 items-start md:h-16 px-8 text-white transition-all duration-300`}>
+        <nav className={`w-full h-svh flex flex-col justify-between py-8 items-start md:h-16 px-8 text-white  transition-all duration-300`}>
             <Logo />
-            <div className="mt-4 md:mt-0 mb-8">
-                <ul className="flex flex-col justify-between gap-4 font-sans">
+            <div className="mt-4 md:mt-0 mb-8 ">
+                <ul className="flex flex-col h-full justify-between gap-8 font-sans">
                     <li>
                         <Link href="#Inicio" className={`text-shadow-heavy ${activeLink === 'Inicio' ? 'text-bold underline' : ''}`}>
                             Inicio
@@ -77,10 +79,15 @@ export default function NavbarMd() {
             <div className="flex flex-col md:flex-row gap-4 items-center mt-4 md:mt-0">
                 {isLoggedIn ? (
                     <>
-                        <Avatar>
-                            <AvatarImage src="https://github.com/shadcn.png" />
-                            <AvatarFallback>{username && username.charAt(0).toUpperCase()}</AvatarFallback>
-                        </Avatar>
+                        <div className="flex items-center gap-4 bg-gray-900/30 py-1 px-4 rounded-lg">
+                                    <Avatar>
+                                      <AvatarImage src="https://github.com/shadcn.png" />
+                                      <AvatarFallback>
+                                        {user.name}
+                                      </AvatarFallback>
+                                    </Avatar>
+                                    <span className="capitalize">{user.name}</span>
+                                    </div>
                         <Button onClick={handleLogout} className="bg-red-700 hover:bg-red-800 font-sans transition-all">
                             Cerrar Sesión
                         </Button>

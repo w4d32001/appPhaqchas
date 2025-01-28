@@ -1,7 +1,7 @@
 export type DeportsProps = {
-    items: {
-        title: string,
-        img: string,
-        description: string
-    }
-}
+  name: string;
+  image: string;
+  description: string;
+  price_evening: string;
+  price_morning: string;
+};

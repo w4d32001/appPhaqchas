@@ -30,8 +30,12 @@ export default {
 		},
 		fontFamily: {
 			'Bebas-Neue': ['Sour Gummy', 'sans-serif'],
-			'julius': ['Julius Sans One', 'sans-serif']
-		}
+			'julius': ['Julius Sans One', 'sans-serif'],
+			'nunito': ['Nunito']
+		},
+		animation: {
+			'spin-slow': 'spin 5s linear infinite',
+		},
   	}
   },
   plugins: [require("tailwindcss-animate"), require('tailwindcss-textshadow')],

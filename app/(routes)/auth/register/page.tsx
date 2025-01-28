@@ -2,263 +2,144 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Input from "@/components/Input/Input";
-import Image from "next/image";
+import { useRegister } from "@/hooks/useRegister";
+import MessagesErrors from "@/components/MessagesErrors/MessagesErrors";
 
 export default function Page() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [phone, setPhone] = useState("");
-  const [dni, setDni] = useState("");
-  const [name, setName] = useState("");
-  const [surname, setSurname] = useState("");
-  const router = useRouter();
-  const [errors, setErrors] = useState({
-    email: "",
-    password: "",
-    phone: "",
-    dni: "",
-    name: "",
-    surname: "",
-    general: "",
-  });
-
-  const validateInputs = (): boolean => {
-    const newErrors = {
-      email: "",
-      password: "",
-      phone: "",
-      dni: "",
-      name: "",
-      surname: "",
-      general: "",
-    };
-
-    if (!email.trim()) {
-      newErrors.email = "El correo electrónico es obligatorio.";
-    } else if (!/\S+@\S+\.\S+/.test(email)) {
-      newErrors.email = "Por favor, ingresa un correo válido.";
-    }
-
-    if (!password.trim()) {
-      newErrors.password = "La contraseña es obligatoria.";
-    } else if (password.length < 6) {
-      newErrors.password = "La contraseña debe tener al menos 6 caracteres.";
-    }
-
-    if (!phone.trim()) {
-      newErrors.phone = "El celular es obligatorio.";
-    } else if (phone.length < 9) {
-      newErrors.phone = "El celular debe tener al menos 9 caracteres.";
-    }
-
-    if (dni.trim() && dni.length < 8) {
-      newErrors.dni = "El DNI debe tener al menos 8 caracteres si se proporciona.";
-    }
   
-    if (!name.trim()) {
-      newErrors.name = "El nombre es obligatorio.";
-    }
-  
-    if (!surname.trim()) {
-      newErrors.surname = "El apellido es obligatorio.";
-    }
+  const { dni, setDni, name, setName, surname, setSurname, address, setAddress, password, setPassword, errors, handleRegister, birthDate, setBirthDate, phone, setPhone} = useRegister();
 
-    setErrors(newErrors);
-    return !Object.values(newErrors).some((error) => error !== "");
-  };
-
-  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (!validateInputs()) return;
-
-    try {
-      const response = await fetch("http://127.0.0.1:8000/api/auth/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password, phone, dni, name, surname }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        const loginResponse = await fetch("http://127.0.0.1:8000/api/auth/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        });
-
-        if (!loginResponse.ok) {
-          const errorData = await loginResponse.json();
-          setErrors((prev) => ({
-            ...prev,
-            general: errorData.message || "Error al iniciar sesión automáticamente",
-          }));
-          return;
-        }
-
-        const loginData = await loginResponse.json();
-        localStorage.setItem("token", loginData.access_token); 
-
-        try {
-          const userDataResponse = await fetch("http://127.0.0.1:8000/api/auth/me", {
-            method: "POST",
-            headers: {
-              'Content-Type': 'application/json',
-              "Authorization": `Bearer ${data.access_token}`,
-            },
-          });
-        
-          if (!userDataResponse.ok) {
-            const errorText = await userDataResponse.text();
-            console.error('Error detallado:', errorText);
-            throw new Error('Error al obtener los datos del usuario');
-          }
-          const userData = await userDataResponse.json();
-          console.log(userData);
-  
-          localStorage.setItem("user", JSON.stringify(userData));
-          toast.success("¡Bienvenido, usuario!");
-          router.push("/"); 
-          
-        
-        
-        } catch (error: unknown) {
-            if (error instanceof Error) {
-                console.error("Error al obtener los datos del usuario:", error.message);
-                alert(`Error: ${error.message}`);
-              } else {
-                console.error("Error desconocido:", error);
-                alert("Ocurrió un error inesperado.");
-              }
-        }
-      } else {
-        if (data.errors) {
-          setErrors((prev) => ({
-            ...prev,
-            ...data.errors, 
-          }));
-          console.log(data)
-        } else {
-          setErrors((prev) => ({
-            ...prev,
-            general: data.message || "Error en el registro.",
-          }));console.log(data)
-        }
-      }
-    } catch (error: unknown) {
-        if(error instanceof Error){
-            setErrors((prev) => ({
-                ...prev,
-                general: `Error: ${error.message}`,
-              }));
-        }
-      
-    }
-  };
   return (
     <div className="bg-custom-gradient h-auto overflow-y-hidden">
       <div className=" grid grid-cols-1 lg:grid-cols-3 p-2">
         <div className="text-white min-h-screen w-full px-2 py-4 gap-2 flex flex-col items-center col-span-1 overflow-y-auto">
           <h2 className="uppercase text-3xl">Phaqchas</h2>
           <span className="text-center font-sans text-sm">
-          Regístrate para acceder a promociones y más noticias.
+            Regístrate para acceder a promociones y más noticias.
           </span>
           <div className="w-full flex flex-col gap-y-10">
             <form action="" onSubmit={handleRegister}>
               <div className="flex flex-col gap-2">
-                <div className="flex w-full gap-2 md:flex-row md:gap-4">
-                  <div className="w-1/2">
+                <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="">
                     <Input
                       type="text"
                       name="name"
                       placeholder="Juan"
                       label="Nombre"
                       value={name}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+                      required={true}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setName(e.target.value)
+                      }
                     />
                     {errors.name && (
-                      <span className="text-red-600 text-sm">
-                        {errors.name}
-                      </span>
+                      <MessagesErrors message={errors.name} />
                     )}
                   </div>
-                  <div className="w-1/2">
+                  <div className="">
                     <Input
                       type="text"
                       name="surname"
                       placeholder="Perez"
                       label="Apellido"
                       value={surname}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSurname(e.target.value)}
+                      required={true}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setSurname(e.target.value)
+                      }
                     />
                     {errors.surname && (
-                      <span className="text-red-600 text-sm">
-                        {errors.surname}
-                      </span>
+                      <MessagesErrors message={errors.surname} />
                     )}
                   </div>
                 </div>
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="ejemplo@gmail.com"
-                  label="Correo electrónico"
-                  value={email}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                />
-                {errors.email && (
-                  <span className="text-red-600 text-sm">{errors.email}</span>
-                )}
-                <Input
-                  type="password"
-                  name="password"
-                  placeholder="*********"
-                  label="Contraseña"
-                  value={password}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                />
-                {errors.password && (
-                  <span className="text-red-600 text-sm">
-                    {errors.password}
-                  </span>
-                )}
-                <div className="flex w-full gap-2 md:gap-4">
-                  <div className="w-1/2">
+                <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div>
+                    <Input
+                      type="password"
+                      name="password"
+                      placeholder="*********"
+                      label="Contraseña"
+                      value={password}
+                      required={true}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setPassword(e.target.value)
+                      }
+                    />
+                    {errors.password && (
+                      <MessagesErrors message={errors.password} />
+                    )}
+                  </div>
+                  <div>
+                    <Input
+                      type="text"
+                      name="address"
+                      placeholder="calle falsa 123"
+                      label="Dirección"
+                      value={address}
+                      required={false}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setAddress(e.target.value)
+                      }
+                    />
+                    {errors.address && (
+                      <MessagesErrors message={errors.address} />
+                    )}
+                  </div>
+                </div>
+
+                <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div className="">
                     <Input
                       type="text"
                       name="phone"
                       placeholder="987564123"
                       label="Celular"
                       value={phone}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPhone(e.target.value)}
+                      required={true}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setPhone(e.target.value)
+                      }
                     />
                     {errors.phone && (
-                      <span className="text-red-600 text-sm">
-                        {errors.phone}
-                      </span>
+                      <MessagesErrors message={errors.phone} />
                     )}
                   </div>
-                  <div className="w-1/2">
+                  <div className="">
                     <Input
                       type="text"
                       name="dni"
                       placeholder="85632147"
                       label="DNI"
                       value={dni}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDni(e.target.value)}
+                      required={true}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setDni(e.target.value)
+                      }
                     />
                     {errors.dni && (
-                      <span className="text-red-600 text-sm">{errors.dni}</span>
+                      <MessagesErrors message={errors.dni} />
                     )}
                   </div>
                 </div>
+                <Input
+                  type="date"
+                  name="birthday"
+                  placeholder="987564123"
+                  label="Fecha de nacimiento"
+                  value={birthDate}
+                  required={false}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setBirthDate(e.target.value)
+                  }
+                />
+                {errors.birthDate && (
+                 <MessagesErrors message={errors.birthDate} />
+                )}
 
                 <button className="bg-[#162D3A] text-white py-3 rounded-xl hover:bg-[#162D3A]/60 transition-colors mt-4">
                   Registrate
@@ -280,7 +161,7 @@ export default function Page() {
           </div>
         </div>
         <div className="hidden h-auto col-span-2 lg:flex  items-center">
-          <Image
+          <img
             src="/assets/voley1.jpg"
             alt=""
             className="h-[calc(100vh-2px)] w-full object-cover rounded-lg shadow-xl"

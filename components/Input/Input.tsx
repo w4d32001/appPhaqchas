@@ -3,7 +3,7 @@ import { InputProps } from './Input.type'
 import { Eye, EyeOff } from 'lucide-react';
 
 export default function Input(props: InputProps) {
-    const { type, name, placeholder, value, onChange, label } = props;
+    const { type, name, placeholder, value, onChange, label, required } = props;
     const [showPassword, setShowPassword] = useState(false);
   
     const togglePasswordVisibility = () => {
@@ -12,7 +12,9 @@ export default function Input(props: InputProps) {
   
     return (
       <div className="flex flex-col gap-4 relative">
-        <label htmlFor={name}>{label}</label>
+        <label htmlFor={name}>{label}<span className='ml-1 text-red-600 text-lg'>{
+            required ? '*' : ''
+          }</span></label>
         <div className="relative">
           <input
             type={type === "password" && showPassword ? "text" : type}

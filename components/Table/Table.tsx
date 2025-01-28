@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { DataItem, TableProps } from "./TableType";
+import { apiUrl } from "@/lib/utils";
+import Loader from "@/components/Loader/Loader";
 
 export default function Table( props: TableProps) {
   const [data, setData] = useState<DataItem[]>([]);
@@ -11,7 +13,7 @@ export default function Table( props: TableProps) {
   useEffect(() => {
     const fetchDatos = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:8000/api/bookingsForLandingPage/${id}/${start}/${end}`);
+        const response = await fetch(`${apiUrl}/bookingsForLandingPage/${id}/${start}/${end}`);
         console.log(start)
         if (!response.ok) {
           throw new Error("Error al obtener los datos");
@@ -37,12 +39,14 @@ export default function Table( props: TableProps) {
         return "bg-green-600";
       case "en espera":
         return "bg-yellow-500";
+      case "completado":
+        return "bg-red-600";
       default:
         return "bg-gray-600"; 
     }
   }
 
-  if (loading) return <p>Cargando datos...</p>;
+  if (loading) return <Loader />;
   if (error) return <p>Error: {error}</p>;
 
   return (

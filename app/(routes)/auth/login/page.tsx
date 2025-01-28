@@ -3,10 +3,8 @@ import Link from "next/link";
 import React from "react";
 import { useAuth } from "@/hooks/useAuth";
 import Input from "@/components/Input/Input";
-import Image from "next/image";
 
 export default function Page() {
-  // 
   const { dni, setDni, password, setPassword, errors, handleLogin } = useAuth()
 
   return (
@@ -23,9 +21,10 @@ export default function Page() {
                 <Input
                   type="text"
                   name="dni"
-                  placeholder="ejemplo@gmail.com"
-                  label="Correo electrónico"
+                  placeholder="12345678"
+                  label="DNI"
                   value={dni}
+                  required={true}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDni(e.target.value)}
                 />
                 {errors.dni && (
@@ -37,6 +36,7 @@ export default function Page() {
                   placeholder="*********"
                   label="Contraseña"
                   value={password}
+                  required={true}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 />
                 {errors.password && (
@@ -68,7 +68,7 @@ export default function Page() {
           </div>
         </div>
         <div className="hidden lg:block h-screen col-span-2">
-          <Image
+          <img
             src="/assets/voley1.jpg"
             alt=""
             className="h-[calc(100vh-32px)] w-full object-cover rounded-lg shadow-xl"

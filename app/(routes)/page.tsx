@@ -1,17 +1,17 @@
 import Booking from "@/components/Booking/Booking";
 import Deports from "@/components/Deports/Deports";
+import ImageDeport from "@/components/ImageDeport/ImageDeport";
 import Logo from "@/components/Logo/Logo";
 import Navbar from "@/components/Navbar/Navbar";
 import NavbarMd from "@/components/NavbarMd/NavbarMd";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="h-svh bg-fondo bg-no-repeat bg-cover bg-center">
-      <div className="absolute inset-0 bg-black/40"></div>
+    <div className="h-svh bg-fondo bg-no-repeat relative bg-cover bg-center">
+      <div className="absolute inset-0 bg-black/60"></div>
       <div className="relative z-10">
         <div className="hidden lg:block">
           <Navbar />
@@ -32,16 +32,16 @@ export default function Home() {
         <section id="Inicio" className="h-[calc(100svh-80px)] lg:h-svh">
           <div className="flex justify-center items-center h-5/6">
             <div className="text-center">
-              <h1 className="text-[150px] text-shadow-heavy font-julius text-gray-200">
+              <h1 className="text-[50px] md:text-[100px] lg:text-[150px] text-shadow-heavy font-julius text-gray-200">
                 Phaqchas
               </h1>
-              <p className="text-gray-200 text-shadow-heavy font-sans text-md md:text-xl">
+              <p className="text-gray-200 text-shadow-heavy font-nunito text-md md:text-xl">
                 Fuente de energía
               </p>
             </div>
           </div>
           <div className="flex items-center h-1/6 justify-center">
-            <button className="bg-blue-900 hover:bg-blue-900 transition-all shadow-3xl border border-white text-xl md:text-3xl px-4 md:px-8 py-2 font-Bebas-Neue text-white rounded-lg">
+            <button className="bg-blue-700 hover:bg-blue-900 transition-all shadow-3xl border border-white text-xl md:text-3xl px-4 md:px-8 py-2 font-Bebas-Neue text-white rounded-lg">
               <Link href="#Disponibilidad">Consultar disponibilidad</Link>
             </button>
           </div>
@@ -61,43 +61,19 @@ export default function Home() {
         <section id="Disponibilidad">
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={1} field="Campo 1" />
-            <div className="hidden xl:block">
-              <Image
-                src="/assets/siluetavolley.png"
-                alt=""
-                className="invert brightness-200"
-              />
-            </div>
+            <ImageDeport image="/assets/siluetavolley.png" title="Silueta voley"/>
           </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={2} field="Campo 2" />
-            <div className="hidden xl:block">
-              <Image
-                src="/assets/siluetavolley.png"
-                alt=""
-                className="invert brightness-200"
-              />
-            </div>
+            <ImageDeport image="/assets/siluetavolley.png" title="Silueta voley"/>
           </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={3} field="Campo 3" />
-            <div className="hidden xl:block">
-              <Image
-                src="/assets/siluetavolley.png"
-                alt=""
-                className="invert brightness-200"
-              />
-            </div>
+            <ImageDeport image="/assets/siluetavolley.png" title="Silueta voley"/>
           </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={4} field="Campo 4" />
-            <div className="hidden xl:block">
-              <Image
-                src="/assets/siluetavolley.png"
-                alt=""
-                className="invert brightness-200"
-              />
-            </div>
+            <ImageDeport image="/assets/siluetavolley.png" title="Silueta voley"/>
           </div>
         </section>
         <section id="DondeEstamos" className="h-svh bg-blue-gradient flex flex-col items-center py-14 gap-14">
@@ -119,10 +95,10 @@ export default function Home() {
               </div>
             </div>
             <div className="col-span-2">
-              <Image
+              <img
                 src="/assets/maps.png"
                 alt=""
-                className="object-cover rounded-xl"
+                className="rounded-xl object-contain"
               />
             </div>
           </div>
