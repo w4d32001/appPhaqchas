@@ -1,7 +1,6 @@
 'use client'
 import React from "react";
 import DeportsItem from "../DeportsItem/DeportsItem";
-import { dataDeports } from "./Deports.data";
 import { useSport } from "@/hooks/useSport";
 import Loader from "../Loader/Loader";
 

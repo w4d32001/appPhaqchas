@@ -1,8 +1,7 @@
 "use client";
 import Link from "next/link";
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast, ToastContainer } from "react-toastify";
+import React from "react";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Input from "@/components/Input/Input";
 import { useRegister } from "@/hooks/useRegister";
