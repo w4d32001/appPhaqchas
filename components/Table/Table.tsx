@@ -34,7 +34,7 @@ export default function Table( props: TableProps) {
   function getColorClass(value: string) {
     switch (value) {
       case "disponible":
-        return "bg-blue-800";
+        return "bg-blue-800/20";
       case "reservado":
         return "bg-green-600";
       case "en espera":
