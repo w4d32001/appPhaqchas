@@ -13,7 +13,6 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="h-svh bg-fondo bg-no-repeat relative bg-cover bg-center">
-      {/* <Announcement /> */}
       <div className="absolute inset-0 bg-black/60"></div>
       <div className="relative z-10">
         <div className="hidden lg:block">
