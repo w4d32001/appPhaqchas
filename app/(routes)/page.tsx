@@ -43,7 +43,7 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center h-1/6 justify-center">
-            <button className="bg-blue-700 hover:bg-blue-900 transition-all shadow-3xl border border-white text-xl md:text-3xl px-4 md:px-8 py-2 font-Bebas-Neue text-white rounded-lg">
+            <button className="bg-gray-900/50 hover:bg-gray-950/50 transition-all shadow-3xl border border-white text-xl md:text-3xl px-4 md:px-8 py-2 font-Bebas-Neue text-white rounded-lg">
               <Link href="#Disponibilidad">Consultar disponibilidad</Link>
             </button>
           </div>

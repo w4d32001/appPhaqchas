@@ -69,7 +69,7 @@ export default function Page() {
         </div>
         <div className="hidden lg:block h-screen col-span-2">
           <img
-            src="/assets/voley1.jpg"
+            src="/assets/voley1.jpeg"
             alt=""
             className="h-[calc(100vh-32px)] w-full object-cover rounded-lg shadow-xl"
           />
