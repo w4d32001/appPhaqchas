@@ -53,7 +53,26 @@ export default function Home() {
           <h2 className="text-center py-4 text-3xl text-white">
             Deportes y juegos
           </h2>
-          <Deports />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-blue-gradient gap-4 items-center">
+            <div className="relative col-span-1 bg-red-500">
+              <img src="crokis.jpeg" alt="" className="w-full h-[650px]" />
+              <div className="bg-gray-900 w-20 h-10 rounded-full flex items-center justify-center text-white absolute bottom-[60px] right-[190px]">
+                Campo 1
+              </div>
+              <div className="bg-gray-900 w-20 h-10 rounded-full flex items-center justify-center text-white absolute top-[210px] right-[170px]">
+                Campo 2
+              </div>
+              <div className="bg-gray-900 w-20 h-10 rounded-full flex items-center justify-center text-white absolute top-[350px] right-[170px]">
+                Campo 3
+              </div>
+              <div className="bg-gray-900 w-20 h-10 rounded-full flex items-center justify-center text-white absolute top-16 right-[170px]">
+                campo 4
+              </div>
+            </div>
+           <div className="mg:col-span:1 lg:col-span-2">
+           <Deports />
+           </div>
+          </div>
         </section>
         <div className="h-auto bg-gray-600 flex items-center justify-center">
           <span className="text-white text-xl md:text-3xl text-center py-2">
@@ -61,30 +80,6 @@ export default function Home() {
           </span>
         </div>
         <section id="Disponibilidad">
-          <div className="flex items-center justify-center bg-blue-gradient p-4">
-            <div className="w-[500px] lg:w-[800px] bg-white">
-              <div className="grid grid-cols-5 grid-rows-9 gap-1 font-nunito">
-                <div className="row-span-6 odd:bg-gray-700 even:bg-gray-600"></div>
-                <div className="col-span-4 row-span-2 flex items-center justify-center bg-gray-900 text-white">Campo 4</div>
-                <div className="col-span-4 row-span-2 col-start-2 row-start-3 flex items-center justify-center bg-gray-900 text-white">
-                  Campo 3
-                </div>
-                <div className="col-span-4 row-span-2 col-start-2 row-start-5 flex items-center justify-center bg-gray-900 text-white">
-                  Campo 2
-                </div>
-                <div className="col-span-4 col-start-2 row-start-7 flex items-center justify-center bg-gray-900 text-white">Pasaje</div>
-                <div className="col-span-4 row-span-2 col-start-2 row-start-8 flex gap-x-1">
-                  <div className="bg-gray-900 text-white w-[95%] flex items-center justify-center">
-                  Campo 1
-                  </div>
-                  <div className="bg-gray-900 text-white w-[5%] flex items-center justify-center">
-                      <span className="rotate-90 text-xs">Entrada</span>
-                  </div>
-                </div>
-                <div className="row-span-3 col-start-1 row-start-7 flex items-center justify-center bg-gray-900 text-white "><span className="-rotate-45 lg:rotate-0 text-sm lg:text-md"> Establecimiento</span></div>
-              </div>
-            </div>
-          </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={1} field="Campo 1" />
             <ImageDeport

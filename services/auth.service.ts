@@ -28,7 +28,7 @@ export type User = {
   name: string;
   surname: string;
   address: string;
-  birthDate: string;
+  birthDate: Date | undefined;
 }
 
 export const registerUser = async (data: User) => {

@@ -16,7 +16,7 @@ export const useRegister = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [address, setAddress] = useState("");
-  const [birthDate, setBirthDate] = useState("");
+  const [birthDate, setBirthDate] = useState<Date | undefined>(undefined);
   const router = useRouter();
   const [errors, setErrors] = useState({
     password: "",
@@ -42,7 +42,7 @@ export const useRegister = () => {
 
     if (!password.trim()) {
       newErrors.password = "La contraseña es obligatoria.";
-    } else if (password.length < 6) {
+    } else if (password.length < 8) {
       newErrors.password = "La contraseña debe tener al menos 6 caracteres.";
     }
 

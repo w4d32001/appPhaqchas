@@ -14,7 +14,7 @@ export default function Deports() {
     return <div>{error}</div>;
   }
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       {data?.map((item, index) => (
         <DeportsItem key={index} image={item.image} name={item.name} price_evening={item.price_evening} price_morning={item.price_morning} description={item.description} />
       ))}

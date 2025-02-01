@@ -8,7 +8,8 @@ export default function Page() {
   const { dni, setDni, password, setPassword, errors, handleLogin } = useAuth()
 
   return (
-    <div className="bg-custom-gradient h-svh overflow-y-hidden">
+    <div className="bg-custom-gradient h-svh overflow-y-hidden relative">
+      <Link href="/" className="absolute py-2 px-8 bg-gray-900 top-1 left-1 text-white hover:bg-gray-950 rounded-full">Inicio</Link>
       <div className="h-full grid grid-cols-1 lg:grid-cols-3 p-4 ">
         <div className="text-white w-full px-8 py-10 gap-10 flex flex-col items-center col-span-1">
           <h2 className="uppercase text-3xl">Phaqchas</h2>
