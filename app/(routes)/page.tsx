@@ -1,4 +1,3 @@
-
 import Announcement from "@/components/Announcement/Announcement";
 import Booking from "@/components/Booking/Booking";
 import Deports from "@/components/Deports/Deports";
@@ -14,6 +13,7 @@ export default function Home() {
   return (
     <div className="h-svh bg-fondo bg-no-repeat relative bg-cover bg-center">
       <div className="absolute inset-0 bg-black/60"></div>
+      <Announcement />
       <div className="relative z-10">
         <div className="hidden lg:block">
           <Navbar />
@@ -61,24 +61,63 @@ export default function Home() {
           </span>
         </div>
         <section id="Disponibilidad">
+          <div className="flex items-center justify-center bg-blue-gradient p-4">
+            <div className="w-[500px] lg:w-[800px] bg-white">
+              <div className="grid grid-cols-5 grid-rows-9 gap-1 font-nunito">
+                <div className="row-span-6 odd:bg-gray-700 even:bg-gray-600"></div>
+                <div className="col-span-4 row-span-2 flex items-center justify-center bg-gray-900 text-white">Campo 4</div>
+                <div className="col-span-4 row-span-2 col-start-2 row-start-3 flex items-center justify-center bg-gray-900 text-white">
+                  Campo 3
+                </div>
+                <div className="col-span-4 row-span-2 col-start-2 row-start-5 flex items-center justify-center bg-gray-900 text-white">
+                  Campo 2
+                </div>
+                <div className="col-span-4 col-start-2 row-start-7 flex items-center justify-center bg-gray-900 text-white">Pasaje</div>
+                <div className="col-span-4 row-span-2 col-start-2 row-start-8 flex gap-x-1">
+                  <div className="bg-gray-900 text-white w-[95%] flex items-center justify-center">
+                  Campo 1
+                  </div>
+                  <div className="bg-gray-900 text-white w-[5%] flex items-center justify-center">
+                      <span className="rotate-90 text-xs">Entrada</span>
+                  </div>
+                </div>
+                <div className="row-span-3 col-start-1 row-start-7 flex items-center justify-center bg-gray-900 text-white "><span className="-rotate-45 lg:rotate-0 text-sm lg:text-md"> Establecimiento</span></div>
+              </div>
+            </div>
+          </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={1} field="Campo 1" />
-            <ImageDeport image="/assets/siluetavolley.png" title="Silueta voley"/>
+            <ImageDeport
+              image="/assets/siluetavolley.png"
+              title="Silueta voley"
+            />
           </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={2} field="Campo 2" />
-            <ImageDeport image="/assets/siluetavolley.png" title="Silueta voley"/>
+            <ImageDeport
+              image="/assets/siluetavolley.png"
+              title="Silueta voley"
+            />
           </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={3} field="Campo 3" />
-            <ImageDeport image="/assets/siluetavolley.png" title="Silueta voley"/>
+            <ImageDeport
+              image="/assets/siluetavolley.png"
+              title="Silueta voley"
+            />
           </div>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={4} field="Campo 4" />
-            <ImageDeport image="/assets/siluetavolley.png" title="Silueta voley"/>
+            <ImageDeport
+              image="/assets/siluetavolley.png"
+              title="Silueta voley"
+            />
           </div>
         </section>
-        <section id="DondeEstamos" className="h-svh bg-blue-gradient flex flex-col items-center py-14 gap-14">
+        <section
+          id="DondeEstamos"
+          className="h-svh bg-blue-gradient flex flex-col items-center py-14 gap-14"
+        >
           <div className="h-auto bg-gray-600 w-full flex items-center justify-center">
             <span className="text-white text-center text-xl md:text-3xl">
               Nos puedes encontrar en...
@@ -88,10 +127,16 @@ export default function Home() {
             <div className="bg-[#10192E] text-white p-4 rounded-xl h-full flex flex-col justify-around">
               <h2 className="text-[#6893cc] text-center text-3xl">Ubicación</h2>
               <p>
-              Nos encontramos en la provincia de Abancay, en la intersección de Prolongación Arica con la calle Horacio Zeballos, a 5 minutos del parque Señor de la Caída.
+                Nos encontramos en la provincia de Abancay, en la intersección
+                de Prolongación Arica con la calle Horacio Zeballos, a 5 minutos
+                del parque Señor de la Caída.
               </p>
               <div className="flex items-center justify-center">
-                <Link href="https://www.google.com/maps/@-13.6300254,-72.8793525,19z/data=!5m2!1e4!1e1?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D" className="bg-[#6893cc] rounded-xl text-white py-3 px-5 hover:bg-[#6893cc]/90 transition-colors" target="_blank">
+                <Link
+                  href="https://www.google.com/maps/@-13.6300254,-72.8793525,19z/data=!5m2!1e4!1e1?entry=ttu&g_ep=EgoyMDI0MTIxMS4wIKXMDSoASAFQAw%3D%3D"
+                  className="bg-[#6893cc] rounded-xl text-white py-3 px-5 hover:bg-[#6893cc]/90 transition-colors"
+                  target="_blank"
+                >
                   Abrir en Google Maps
                 </Link>
               </div>
@@ -105,9 +150,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <section className="h-10 bg-blue-gradient">
-
-        </section>
+        <section className="h-10 bg-blue-gradient"></section>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Table from "@/components/Table/Table";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { startOfWeek, endOfWeek, format, addWeeks, subWeeks } from "date-fns";
@@ -7,32 +7,29 @@ import { es } from "date-fns/locale";
 import { BookingProps } from "./Booking.type";
 
 export default function Booking(props: BookingProps) {
-  const [currentWeekStart, setCurrentWeekStart] = useState(new Date());
   const { id, field } = props;
 
-  const getWeekRange = (weekStart: Date ) => {
-    const startOfThisWeek = startOfWeek(new Date(weekStart), { weekStartsOn: 1 });
-    const endOfThisWeek = endOfWeek(new Date(weekStart), { weekStartsOn: 1 });
+  // Asegurar que siempre inicie en domingo
+  const [currentWeekStart, setCurrentWeekStart] = useState(() => 
+    startOfWeek(new Date(), { weekStartsOn: 0 })
+  );
 
-    return {
-      start: format(startOfThisWeek, "yyyy-MM-dd"),
-      end: format(endOfThisWeek, "yyyy-MM-dd"),
-    };
-  };
+  const getWeekRange = (weekStart: Date) => ({
+    start: startOfWeek(weekStart, { weekStartsOn: 0 }),
+    end: endOfWeek(weekStart, { weekStartsOn: 0 }),
+  });
 
-  const [weekRange, setWeekRange] = useState(getWeekRange(currentWeekStart));
-
-  useEffect(() => {
-    setWeekRange(getWeekRange(currentWeekStart));
-  }, [currentWeekStart]);
+  // Calcular el rango de la semana basado en currentWeekStart
+  const weekRange = getWeekRange(currentWeekStart);
 
   const goToNextWeek = () => {
-    setCurrentWeekStart(addWeeks(currentWeekStart, 1));
+    setCurrentWeekStart((prev) => addWeeks(prev, 1));
   };
 
   const goToPreviousWeek = () => {
-    setCurrentWeekStart(subWeeks(currentWeekStart, 1));
+    setCurrentWeekStart((prev) => subWeeks(prev, 1));
   };
+
   return (
     <div className="w-full md:w-5/6">
       <div className="flex justify-around mb-4 items-center w-full">
@@ -44,8 +41,8 @@ export default function Booking(props: BookingProps) {
           <span className="hidden md:block">Semana anterior</span>
         </button>
         <h1 className="text-white">
-          {format(new Date(weekRange.start), "dd MMMM yyyy", { locale: es })} a{" "}
-          {format(new Date(weekRange.end), "dd MMMM yyyy", { locale: es })}
+          {format(weekRange.start, "dd MMMM yyyy", { locale: es })} a{" "}
+          {format(weekRange.end, "dd MMMM yyyy", { locale: es })}
         </h1>
         <button
           onClick={goToNextWeek}
@@ -55,7 +52,12 @@ export default function Booking(props: BookingProps) {
         </button>
       </div>
       <div className="min-w-full overflow-x-auto">
-        <Table end={weekRange.end} start={weekRange.start} id={id} field={field}/>
+        <Table
+          end={format(weekRange.end, "yyyy-MM-dd")}
+          start={format(weekRange.start, "yyyy-MM-dd")}
+          id={id}
+          field={field}
+        />
       </div>
     </div>
   );

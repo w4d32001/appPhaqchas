@@ -9,7 +9,6 @@ export default function Deports() {
   if (loading) {
     return <Loader />;
   }
-  console.log(data)
 
   if (error) {
     return <div>{error}</div>;
