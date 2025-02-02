@@ -28,7 +28,7 @@ export type User = {
   name: string;
   surname: string;
   address: string;
-  birthDate: Date | undefined;
+  birthDate: string;
 }
 
 export const registerUser = async (data: User) => {
@@ -50,6 +50,7 @@ export const registerUser = async (data: User) => {
 
   if (!response.ok) {
     const errorData = await response.json();
+    console.log(errorData)
     throw({
       errors: errorData.errors || {},
       message: errorData.message || "Error al registrar el usuario",

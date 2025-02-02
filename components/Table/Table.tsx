@@ -43,7 +43,7 @@ export default function Table(props: TableProps) {
   function getColorClass(value: string) {
     const colors: Record<string, string> = {
       "disponible": "bg-blue-800/20",
-      "reservado": "bg-green-600",
+      "reservado": "bg-green-500/50",
       "en espera": "bg-yellow-500",
       "completado": "bg-red-600",
     };

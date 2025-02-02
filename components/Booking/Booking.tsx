@@ -9,7 +9,6 @@ import { BookingProps } from "./Booking.type";
 export default function Booking(props: BookingProps) {
   const { id, field } = props;
 
-  // Asegurar que siempre inicie en domingo
   const [currentWeekStart, setCurrentWeekStart] = useState(() => 
     startOfWeek(new Date(), { weekStartsOn: 0 })
   );
@@ -19,7 +18,6 @@ export default function Booking(props: BookingProps) {
     end: endOfWeek(weekStart, { weekStartsOn: 0 }),
   });
 
-  // Calcular el rango de la semana basado en currentWeekStart
   const weekRange = getWeekRange(currentWeekStart);
 
   const goToNextWeek = () => {

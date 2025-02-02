@@ -2,6 +2,7 @@ import Announcement from "@/components/Announcement/Announcement";
 import Booking from "@/components/Booking/Booking";
 import Deports from "@/components/Deports/Deports";
 import ImageDeport from "@/components/ImageDeport/ImageDeport";
+import LazyLoad from "@/components/LazyLoad/LazyLoad";
 import Logo from "@/components/Logo/Logo";
 import Navbar from "@/components/Navbar/Navbar";
 import NavbarMd from "@/components/NavbarMd/NavbarMd";
@@ -48,7 +49,7 @@ export default function Home() {
             </button>
           </div>
         </section>
-
+        <LazyLoad>
         <section id="Deportes" className="p-8 bg-blue-gradient">
           <h2 className="text-center py-4 text-3xl text-white">
             Deportes y juegos
@@ -60,10 +61,10 @@ export default function Home() {
                 Campo 1
               </div>
               <div className="bg-gray-900 w-20 h-10 rounded-full flex items-center justify-center text-white absolute top-[210px] right-[170px]">
-                Campo 2
+                Campo 3
               </div>
               <div className="bg-gray-900 w-20 h-10 rounded-full flex items-center justify-center text-white absolute top-[350px] right-[170px]">
-                Campo 3
+                Campo 2
               </div>
               <div className="bg-gray-900 w-20 h-10 rounded-full flex items-center justify-center text-white absolute top-16 right-[170px]">
                 campo 4
@@ -74,12 +75,15 @@ export default function Home() {
            </div>
           </div>
         </section>
+        </LazyLoad>
         <div className="h-auto bg-gray-600 flex items-center justify-center">
           <span className="text-white text-xl md:text-3xl text-center py-2">
             Visualiza tiempos disponibles este mes
           </span>
         </div>
+        
         <section id="Disponibilidad">
+          <LazyLoad>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={1} field="Campo 1" />
             <ImageDeport
@@ -87,6 +91,8 @@ export default function Home() {
               title="Silueta voley"
             />
           </div>
+          </LazyLoad>
+          <LazyLoad>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={2} field="Campo 2" />
             <ImageDeport
@@ -94,6 +100,8 @@ export default function Home() {
               title="Silueta voley"
             />
           </div>
+          </LazyLoad>
+          <LazyLoad>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={3} field="Campo 3" />
             <ImageDeport
@@ -101,6 +109,8 @@ export default function Home() {
               title="Silueta voley"
             />
           </div>
+          </LazyLoad>
+          <LazyLoad>
           <div className="py-4 px-2 bg-blue-gradient flex gap-2 items-center">
             <Booking id={4} field="Campo 4" />
             <ImageDeport
@@ -108,7 +118,9 @@ export default function Home() {
               title="Silueta voley"
             />
           </div>
+          </LazyLoad>
         </section>
+        <LazyLoad>
         <section
           id="DondeEstamos"
           className="h-svh bg-blue-gradient flex flex-col items-center py-14 gap-14"
@@ -145,6 +157,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        </LazyLoad>
         <section className="h-10 bg-blue-gradient"></section>
       </div>
     </div>

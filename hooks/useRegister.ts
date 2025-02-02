@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Swal from "sweetalert2";
 import { BackendError } from "./useAuth";
+import { format } from "date-fns";
 
 export const useRegister = () => {
   const [password, setPassword] = useState("");
@@ -74,9 +75,11 @@ export const useRegister = () => {
 
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+  
     if (!validateInputs()) return;
-
+  
+    const formattedBirthDate = birthDate ? format(birthDate, "yyyy-MM-dd") : "";
+  
     const data = {
       password,
       phone,
@@ -84,9 +87,9 @@ export const useRegister = () => {
       name,
       surname,
       address,
-      birthDate,
+      birthDate: formattedBirthDate,
     };
-
+  
     try {
       await registerUser(data);
       Swal.fire({
@@ -98,31 +101,31 @@ export const useRegister = () => {
         timer: 3000,
         timerProgressBar: true,
       });
-
+  
       const { access_token } = await loginUser(dni, password);
-
+  
       localStorage.setItem("token", access_token);
-
+  
       const userData = await fetchUserData(access_token);
       localStorage.setItem("user", JSON.stringify(userData));
-
+  
       router.push("/");
     } catch (error: unknown) {
       const backendError = error as BackendError;
       if (backendError.errors) {
         Object.entries(backendError.errors).forEach(([field, messages]) => {
           const errorMessage = `${messages.join(", ")}`;
-
-        Swal.fire({
-          icon: "error",
-          toast: true,
-          title: errorMessage,
-          position: 'top-end', 
-          showConfirmButton: false, 
-          timer: 3000, 
-          timerProgressBar: true,
+  
+          Swal.fire({
+            icon: "error",
+            toast: true,
+            title: errorMessage,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+          });
         });
-      });
       } else {
         console.error("Error desconocido:", error);
         alert("Ocurrió un error inesperado.");
