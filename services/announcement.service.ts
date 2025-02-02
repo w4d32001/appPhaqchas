@@ -13,7 +13,7 @@ export type Announcement = {
 
 export const fetchDataAnnouncements = async (): Promise<Announcement | undefined> => {
     try{
-        const response = await fetch(`${apiUrl}/announcement`, {
+        const response = await fetch(`${apiUrl}/activeAnnouncement`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
