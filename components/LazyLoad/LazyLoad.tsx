@@ -1,9 +1,7 @@
-"use client"
+"use client";
 import { useEffect, useRef, useState } from "react";
 
-const LazyLoad = ({ children }: Readonly<{
-    children: React.ReactNode;
-  }>) => {
+const LazyLoad = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
@@ -12,7 +10,7 @@ const LazyLoad = ({ children }: Readonly<{
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect();
+          observer.disconnect(); 
         }
       },
       {
@@ -21,13 +19,15 @@ const LazyLoad = ({ children }: Readonly<{
       }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    const currentRef = ref.current;
+
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);

@@ -44,7 +44,7 @@ export const useRegister = () => {
     if (!password.trim()) {
       newErrors.password = "La contraseña es obligatoria.";
     } else if (password.length < 8) {
-      newErrors.password = "La contraseña debe tener al menos 6 caracteres.";
+      newErrors.password = "La contraseña debe tener al menos 8 caracteres.";
     }
 
     if (!phone.trim()) {
