@@ -10,12 +10,12 @@ export default function Booking(props: BookingProps) {
   const { id, field } = props;
 
   const [currentWeekStart, setCurrentWeekStart] = useState(() => 
-    startOfWeek(new Date(), { weekStartsOn: 0 })
+    startOfWeek(new Date(), { weekStartsOn: 1 })
   );
 
   const getWeekRange = (weekStart: Date) => ({
-    start: startOfWeek(weekStart, { weekStartsOn: 0 }),
-    end: endOfWeek(weekStart, { weekStartsOn: 0 }),
+    start: startOfWeek(weekStart, { weekStartsOn: 1 }),
+    end: endOfWeek(weekStart, { weekStartsOn: 1 }),
   });
 
   const weekRange = getWeekRange(currentWeekStart);
@@ -30,7 +30,7 @@ export default function Booking(props: BookingProps) {
 
   return (
     <div className="w-full md:w-5/6">
-      <div className="flex justify-around mb-4 items-center w-full">
+      <div data-aos="fade-up" className="flex justify-around mb-4 items-center w-full">
         <button
           onClick={goToPreviousWeek}
           className="text-white rounded-xl bg-blue-700 hover:bg-blue-900/90 py-2 transition-colors px-4 text-xl flex items-center justify-between"
@@ -49,7 +49,7 @@ export default function Booking(props: BookingProps) {
           <span className="hidden md:block">Siguiente semana</span> <ArrowRight strokeWidth={2} />
         </button>
       </div>
-      <div className="min-w-full overflow-x-auto">
+      <div data-aos="fade-up" className="min-w-full overflow-x-auto">
         <Table
           end={format(weekRange.end, "yyyy-MM-dd")}
           start={format(weekRange.start, "yyyy-MM-dd")}

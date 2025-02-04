@@ -12,8 +12,7 @@ export default function Table(props: TableProps) {
   const [error, setError] = useState("");
   const { start, end, id, field } = props;
 
-  // Asegurar que start sea una fecha válida y comience el domingo
-  const startDate = startOfWeek(parseISO(start), { weekStartsOn: 0 });
+  const startDate = startOfWeek(parseISO(start), { weekStartsOn: 1 });
   const weekDates = Array.from({ length: 7 }, (_, index) =>
     format(addDays(startDate, index), "dd/MM", { locale: es })
   );
@@ -61,7 +60,7 @@ export default function Table(props: TableProps) {
           <th className="border px-4 py-2 bg-blue-600">Hora</th>
           {weekDates.map((date, index) => (
             <th key={index} className="border px-4 py-2 bg-blue-500">
-              {['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'][index]}<br />{date}
+              {[ 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'][index]}<br />{date}
             </th>
           ))}
         </tr>

@@ -15,7 +15,7 @@ export default function AnnouncementModal(props: AnnouncementModalProps) {
 
   return (
     <div className="fixed inset-0 flex py-4 lg:py-0 md:items-center justify-center bg-black bg-opacity-70 z-50">
-      <div className="bg-blue-950/95 max-w-[350px] max-h-[900px]  md:max-w-[500px] md:max-h-[1100px] relative rounded-lg shadow-lg">
+      <div data-aos="fade-down" className="bg-blue-950/95 max-w-[350px] max-h-[900px]  md:max-w-[500px] md:max-h-[1100px] relative rounded-lg shadow-lg">
           <div className="absolute -top-4 -right-4 text-3xl bg-blue-900/90 p-1 rounded-full text-white cursor-pointer hover:bg-blue-950 transition-all">
           <X size={30} strokeWidth={3} className="" onClick={handleClose}/>
           </div>
