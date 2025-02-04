@@ -14,7 +14,7 @@ export default function DatePicker(props: DatePickerProps) {
   const [month, setMonth] = useState(value || new Date());
 
   // Rango de años
-  const years = Array.from({ length: 30 }, (_, i) => new Date().getFullYear() - 15 + i);
+  const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - 50 + i);
   const months = [
     "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
