@@ -7,7 +7,7 @@ import Logo from "@/components/Logo/Logo";
 import Navbar from "@/components/Navbar/Navbar";
 import NavbarMd from "@/components/NavbarMd/NavbarMd";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Facebook, Menu, MessageCircle } from "lucide-react";
+import { Facebook, Menu } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
