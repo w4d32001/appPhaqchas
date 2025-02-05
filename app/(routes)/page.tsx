@@ -185,9 +185,9 @@ export default function Home() {
           </section>
         </LazyLoad>
         <footer className="bg-blue-950 w-full py-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white text-center md:text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white text-center md:text-left md:px-16">
             {/* Redes Sociales */}
-            <div className="flex flex-col items-center md:items-start gap-4">
+            <div className="flex flex-col justify-center md:items-start gap-4">
               <span className="text-lg font-semibold">
                 Nuestras redes sociales
               </span>
