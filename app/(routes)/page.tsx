@@ -7,7 +7,7 @@ import Logo from "@/components/Logo/Logo";
 import Navbar from "@/components/Navbar/Navbar";
 import NavbarMd from "@/components/NavbarMd/NavbarMd";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu } from "lucide-react";
+import { Facebook, Menu, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -165,9 +165,24 @@ export default function Home() {
           </div>
         </section>
         </LazyLoad>
-        <section className="h-10 bg-blue-gradient">
-
-        </section>
+        <footer className="h-auto bg-blue-gradient w-full pb-8">
+            <div className="flex items-center justify-around text-white">
+              <div>
+                <span>Nuestras redes sociales</span>
+                <div className="py-4 flex items-center justify-center gap-x-4">
+                <Link href="https://www.facebook.com/profile.php?id=61571637322910" target="_blank">
+                <Facebook />
+                </Link>
+                </div>
+                <a href="https://wa.me/51929918682" target="_blank"  className="text-white bg-green-600 hover:bg-green-700 rounded-xl transition-colors py-2 px-4" rel="noopener noreferrer">Reserve por WhatsApp</a>
+              </div>
+              
+              <div className="flex gap-y-4 items-start flex-col">
+                <span>Mas información</span>
+                <span>Reserve al numero: 987654321</span>
+              </div>
+            </div>
+        </footer>
       </div>
     </div>
   );
