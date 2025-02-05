@@ -131,7 +131,7 @@ export default function Navbar() {
                 activeLink === "DondeEstamos" ? "font-bold underline" : ""
               }`}
             >
-              Donde Estamos
+              Donde estamos
             </a>
           </li>
         </ul>
@@ -151,14 +151,14 @@ export default function Navbar() {
               onClick={handleLogout}
               className="bg-red-700 py-2 px-4 hover:bg-red-800 font-sans transition-all"
             >
-              Cerrar Sesión
+              Cerrar sesión
             </Button>
           </>
         ) : (
           <div className="flex gap-4">
             <Link href="/auth/login">
               <Button className="bg-blue-700 hover:bg-blue-800 font-sans transition-all">
-                Iniciar Sesión
+                Iniciar sesión
               </Button>
             </Link>
             <Link href="/auth/register">
