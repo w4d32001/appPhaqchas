@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation"; // Importamos useRouter
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
@@ -7,6 +8,7 @@ import Image from "next/image";
 import { User } from "@/services/auth.service";
 
 export default function Navbar() {
+  const router = useRouter(); // Hook para manejar la navegación
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,11 +27,7 @@ export default function Navbar() {
     }
 
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
 
       const sections = document.querySelectorAll("section");
       sections.forEach((section) => {
@@ -56,12 +54,11 @@ export default function Navbar() {
 
   const handleSmoothScroll = (e: React.MouseEvent, targetId: string) => {
     e.preventDefault();
-    const targetElement = document.querySelector(targetId);
+
+    const targetElement = document.getElementById(targetId);
     if (targetElement) {
-      targetElement.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      router.push("/", { scroll: false }); // Actualiza la URL sin el #
     }
   };
 
@@ -72,8 +69,8 @@ export default function Navbar() {
       }`}
     >
       <a
-        href="#Inicio"
-        onClick={(e) => handleSmoothScroll(e, "#Inicio")}
+        href="/"
+        onClick={(e) => handleSmoothScroll(e, "Inicio")}
         className={`uppercase text-2xl flex items-center gap-2 ${
           activeLink === "Inicio" ? "text-gray-100" : ""
         }`}
@@ -85,15 +82,15 @@ export default function Navbar() {
           height={40}
           className="w-10"
         />
-        <h1 className="text-shadow-heavy font-Bebas-Neue">Phaqchas</h1>
+        <h1 className="text-shadow-heavy font-Bebas-Neue text-orange-700 font-bold">Phaqchas</h1>
       </a>
 
       <div className="mt-4 md:mt-0">
-        <ul className="flex flex-row gap-4 text-xl font-sans items-center">
+        <ul className="flex flex-row gap-4 text-xl font-sans items-center font-semibold">
           <li>
             <a
-              href="#Inicio"
-              onClick={(e) => handleSmoothScroll(e, "#Inicio")}
+              href="/"
+              onClick={(e) => handleSmoothScroll(e, "Inicio")}
               className={`text-shadow-heavy ${
                 activeLink === "Inicio" ? "font-bold underline" : ""
               }`}
@@ -103,8 +100,8 @@ export default function Navbar() {
           </li>
           <li>
             <a
-              href="#Deportes"
-              onClick={(e) => handleSmoothScroll(e, "#Deportes")}
+              href="/"
+              onClick={(e) => handleSmoothScroll(e, "Deportes")}
               className={`text-shadow-heavy ${
                 activeLink === "Deportes" ? "font-bold underline" : ""
               }`}
@@ -114,8 +111,8 @@ export default function Navbar() {
           </li>
           <li>
             <a
-              href="#Disponibilidad"
-              onClick={(e) => handleSmoothScroll(e, "#Disponibilidad")}
+              href="/"
+              onClick={(e) => handleSmoothScroll(e, "Disponibilidad")}
               className={`text-shadow-heavy ${
                 activeLink === "Disponibilidad" ? "font-bold underline" : ""
               }`}
@@ -125,8 +122,8 @@ export default function Navbar() {
           </li>
           <li>
             <a
-              href="#DondeEstamos"
-              onClick={(e) => handleSmoothScroll(e, "#DondeEstamos")}
+              href="/"
+              onClick={(e) => handleSmoothScroll(e, "DondeEstamos")}
               className={`text-shadow-heavy ${
                 activeLink === "DondeEstamos" ? "font-bold underline" : ""
               }`}
@@ -156,13 +153,8 @@ export default function Navbar() {
           </>
         ) : (
           <div className="flex gap-4">
-            <Link href="/auth/login">
-              <Button className="bg-blue-700 hover:bg-blue-800 font-sans transition-all">
-                Iniciar sesión
-              </Button>
-            </Link>
             <Link href="/auth/register">
-              <Button className="bg-gray-700 hover:bg-gray-800 font-sans transition-all">
+              <Button className="bg-green-700 hover:bg-green-800 font-sans transition-all">
                 Registrarse
               </Button>
             </Link>

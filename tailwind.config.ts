@@ -27,6 +27,7 @@ export default {
 		textShadow: {
 			default: '2px 2px 4px rgba(0, 0, 0, 0.5)',
 			heavy: '10px 10px 12px rgba(0, 0, 0, 0.75)',
+			neutro: '10px 10px 12px rgba(255, 255, 255, 1)',
 		},
 		fontFamily: {
 			'Bebas-Neue': ['Sour Gummy', 'sans-serif'],

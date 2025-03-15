@@ -12,16 +12,22 @@ export default function Table(props: TableProps) {
   const [error, setError] = useState("");
   const { start, end, id, field } = props;
 
-  const startDate = startOfWeek(parseISO(start), { weekStartsOn: 1 });
+  const startDate = parseISO(start);
+
   const weekDates = Array.from({ length: 7 }, (_, index) =>
     format(addDays(startDate, index), "dd/MM", { locale: es })
   );
+
+  const weekDays =
+    data.length > 0 ? Object.keys(data[0]).filter((key) => key !== "hour") : [];
 
   useEffect(() => {
     const fetchDatos = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${apiUrl}/bookingsForLandingPage/${id}/${start}/${end}`);
+        const response = await fetch(
+          `${apiUrl}/bookingsForLandingPage/${id}/${start}/${end}`
+        );
         if (!response.ok) {
           throw new Error("Error al obtener los datos");
         }
@@ -39,28 +45,33 @@ export default function Table(props: TableProps) {
     fetchDatos();
   }, [start, end, id]);
 
+
   function getColorClass(value: string) {
     const colors: Record<string, string> = {
-      "disponible": "bg-blue-800/20",
-      "reservado": "bg-[#39AA29]",
+      disponible: "bg-white text-green-700 font-bold",
+      reservado: "bg-[#39AA29]",
       "en espera": "bg-yellow-500",
-      "completado": "bg-red-600",
+      completado: "bg-red-600",
     };
     return colors[value] || "bg-gray-600";
   }
+
+  console.log(data);
 
   if (loading) return <Loader />;
   if (error) return <p className="text-red-500">Error: {error}</p>;
 
   return (
-    <table className="w-full text-white border-collapse border border-gray-600">
+    <table className="w-full text-white border-collapse">
       <thead>
         <tr>
           <th></th>
-          <th className="border px-4 py-2 bg-blue-600">Hora</th>
-          {weekDates.map((date, index) => (
-            <th key={index} className="border px-4 py-2 bg-blue-500">
-              {[ 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'][index]}<br />{date}
+          <th className="border px-4 py-2 bg-orange-600">Hora</th>
+          {weekDays.map((day, index) => (
+            <th key={index} className="border px-4 py-2 bg-orange-500">
+              {day}
+              <br />
+              {weekDates[index]}
             </th>
           ))}
         </tr>
@@ -69,17 +80,23 @@ export default function Table(props: TableProps) {
         {data.map((item, index) => (
           <tr key={index}>
             {index === 0 && (
-              <td rowSpan={data.length} className="rotate-90 border">
-                <div className="w-20">{field}</div>
+              <td rowSpan={data.length} className="border bg-orange-700 w-20">
+                <div className="w-20 h-full rotate-90 text-gray-100 flex items-center justify-center">
+                  {field}
+                </div>
               </td>
             )}
-            <td className="border px-4 py-2 text-xs">{item.hour}</td>
+            <td className="border px-4 py-2 text-xs bg-orange-500 text-center">
+              {item.hour}
+            </td>
             {Object.keys(item)
               .filter((key) => key !== "hour")
               .map((day, idx) => (
                 <td
                   key={idx}
-                  className={`border px-4 py-2 text-xs text-center capitalize ${getColorClass(item[day as keyof DataItem] as string)}`}
+                  className={`border px-4 py-2 text-xs text-center capitalize ${getColorClass(
+                    item[day as keyof DataItem] as string
+                  )}`}
                 >
                   {item[day as keyof DataItem]}
                 </td>
