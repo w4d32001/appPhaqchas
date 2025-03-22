@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import Navbar from "@/components/Navbar/Navbar";
 
 export default function Layout({
   children,
@@ -11,15 +12,16 @@ export default function Layout({
 }>) {
   useEffect(() => {
     AOS.init({
-      duration: 800, 
-      once: true, 
+      duration: 800,
+      once: true,
     });
   }, []);
 
   return (
-    <div >
-      
-        {children}
+    <div>
+        <Navbar />
+     
+      {children}
     </div>
   );
 }

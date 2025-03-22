@@ -1,31 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation"; // Importamos useRouter
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
 import Image from "next/image";
-import { User } from "@/services/auth.service";
+import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import Logo from "../Logo/Logo";
 
 export default function Navbar() {
-  const router = useRouter(); // Hook para manejar la navegación
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeLink, setActiveLink] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState<User>({} as User);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setIsLoggedIn(true);
-      const user = localStorage.getItem("user");
-      if (user) {
-        setUser(JSON.parse(user));
-      }
-    } else {
-      setIsLoggedIn(false);
-    }
-
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
@@ -44,122 +32,117 @@ export default function Navbar() {
     };
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("name");
-    localStorage.removeItem("user");
-    setIsLoggedIn(false);
-    setUser({} as User);
-  };
-
   const handleSmoothScroll = (e: React.MouseEvent, targetId: string) => {
     e.preventDefault();
 
-    const targetElement = document.getElementById(targetId);
-    if (targetElement) {
-      targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
-      router.push("/", { scroll: false }); // Actualiza la URL sin el #
+    if (window.location.pathname === "/") {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } else {
+      localStorage.setItem("scrollTarget", targetId);
+      router.push("/");
     }
+
   };
+
+  useEffect(() => {
+    const targetId = localStorage.getItem("scrollTarget");
+    if (targetId) {
+      setTimeout(() => {
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        localStorage.removeItem("scrollTarget");
+      }, 500);
+    }
+  }, []);
 
   return (
     <nav
-      className={`fixed top-0 left-0 w-full z-50 flex flex-col md:flex-row justify-around items-center h-auto md:h-16 px-8 text-white transition-all duration-300 ${
-        isScrolled ? "bg-gray-800" : "bg-transparent"
+      className={`fixed top-0 left-0 w-full z-50 flex items-center justify-between px-8 py-4 transition-all duration-300 ${
+        isScrolled ? "bg-white shadow-lg" : "bg-transparent"
       }`}
     >
-      <a
-        href="/"
-        onClick={(e) => handleSmoothScroll(e, "Inicio")}
-        className={`uppercase text-2xl flex items-center gap-2 ${
-          activeLink === "Inicio" ? "text-gray-100" : ""
-        }`}
-      >
-        <Image
-          src="/volleyball.png"
-          alt="Logo Phaqchas"
-          width={40}
-          height={40}
-          className="w-10"
-        />
-        <h1 className="text-shadow-heavy font-Bebas-Neue text-orange-700 font-bold">Phaqchas</h1>
-      </a>
+      {/* Logo */}
+      <Link href="/" onClick={(e) => handleSmoothScroll(e, "Inicio")} className="flex items-center gap-2">
+        <Image src="/volleyball.png" alt="Logo Phaqchas" width={40} height={40} className="w-10" />
+        <h1 className="font-Bebas-Neue text-orange-700 font-bold text-2xl">Phaqchas</h1>
+      </Link>
 
-      <div className="mt-4 md:mt-0">
-        <ul className="flex flex-row gap-4 text-xl font-sans items-center font-semibold">
-          <li>
-            <a
-              href="/"
-              onClick={(e) => handleSmoothScroll(e, "Inicio")}
-              className={`text-shadow-heavy ${
-                activeLink === "Inicio" ? "font-bold underline" : ""
-              }`}
-            >
-              Inicio
-            </a>
-          </li>
-          <li>
-            <a
-              href="/"
-              onClick={(e) => handleSmoothScroll(e, "Deportes")}
-              className={`text-shadow-heavy ${
-                activeLink === "Deportes" ? "font-bold underline" : ""
-              }`}
-            >
-              Deportes
-            </a>
-          </li>
-          <li>
-            <a
-              href="/"
-              onClick={(e) => handleSmoothScroll(e, "Disponibilidad")}
-              className={`text-shadow-heavy ${
-                activeLink === "Disponibilidad" ? "font-bold underline" : ""
-              }`}
-            >
-              Disponibilidad
-            </a>
-          </li>
-          <li>
-            <a
-              href="/"
-              onClick={(e) => handleSmoothScroll(e, "DondeEstamos")}
-              className={`text-shadow-heavy ${
-                activeLink === "DondeEstamos" ? "font-bold underline" : ""
-              }`}
-            >
-              Donde estamos
-            </a>
-          </li>
-        </ul>
-      </div>
+      <ul className="hidden md:flex gap-6 text-lg font-semibold">
+  {[
+    { name: "Inicio", id: "Inicio" },
+    { name: "Anuncios", id: "Anuncio" },
+    { name: "Deportes", id: "Deportes" },
+    { name: "Dónde Estamos", id: "DondeEstamos" },
+    { name: "Reservas", id: "reservations", link: "/reservations" },
+  ].map((item) => (
+    <li key={item.id}>
+      {item.link ? (
+        <Link href={item.link} className="hover:text-orange-600">
+          {item.name}
+        </Link>
+      ) : (
+        <a
+          href={`#${item.id}`}
+          onClick={(e) => handleSmoothScroll(e, item.id)}
+          className={`hover:text-orange-600 ${
+            activeLink === item.id ? "font-bold underline text-brown-600" : ""
+          }`}
+        >
+          {item.name}
+        </a>
+      )}
+    </li>
+  ))}
+</ul>
 
-      <div className="flex flex-col md:flex-row gap-4 items-center mt-4 md:mt-0">
-        {isLoggedIn ? (
-          <>
-            <div className="flex items-center gap-4 bg-gray-900/30 py-1 px-4 rounded-lg">
-              <Avatar>
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>{user.name}</AvatarFallback>
-              </Avatar>
-              <span className="capitalize">{user.name}</span>
+
+      <Link href="/auth/register" className="hidden md:block">
+        <button className="bg-green-700 hover:bg-green-800 text-xl font-bold text-white rounded-xl px-6 py-3">Registrate</button>
+      </Link>
+
+      <div className="lg:hidden fixed top-0 left-0  z-50  md:flex-row md:h-16 bg-gray-800 flex items-center justify-between w-svw  h-20 px-5  pr-8">
+        <Logo />
+        <Sheet>
+          <SheetTrigger>
+            <Menu  strokeWidth={2} className="text-white text-3xl" />
+          </SheetTrigger>
+          <SheetContent className="bg-gray-800 text-white">
+            <div className="flex justify-between items-center py-4 px-6">
+              <h2 className="text-2xl font-bold">Menú</h2>
             </div>
-            <Button
-              onClick={handleLogout}
-              className="bg-red-700 py-2 px-4 hover:bg-red-800 font-sans transition-all"
-            >
-              Cerrar sesión
-            </Button>
-          </>
-        ) : (
-          <div className="flex gap-4">
-            <Link href="/auth/register">
-              <Button className="bg-green-700 hover:bg-green-800 font-sans transition-all">
-                Registrarse
-              </Button>
-            </Link>
-          </div>
-        )}
+            <ul className="flex flex-col gap-4 text-lg font-semibold px-6">
+              {[
+                { name: "Inicio", id: "Inicio" },
+                { name: "Anuncios", id: "Anuncio" },
+                { name: "Deportes", id: "Deportes", link: "/Deportes" },
+                { name: "Dónde Estamos", id: "DondeEstamos" },
+                { name: "Reservas", id: "reservations", link: "/reservations" },
+              ].map((item) => (
+                <li key={item.id}>
+                  <Link
+                    href={item.link || "/"}
+                    onClick={(e) => handleSmoothScroll(e, item.id)}
+                    className={`block py-2 text-white hover:text-orange-500 ${
+                      activeLink === item.id ? "font-bold underline text-orange-500" : ""
+                    }`}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="px-6 mt-6">
+              <Link href="/auth/register">
+                <button className="w-full bg-green-700 font-bold hover:bg-green-800 text-xl">Registrarse</button>
+              </Link>
+            </div>
+          </SheetContent>
+        </Sheet>
       </div>
     </nav>
   );

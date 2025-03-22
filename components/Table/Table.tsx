@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { DataItem, TableProps } from "./TableType";
 import { apiUrl } from "@/lib/utils";
 import Loader from "@/components/Loader/Loader";
-import { format, addDays, startOfWeek, parseISO } from "date-fns";
+import { format, addDays, parseISO } from "date-fns";
 import { es } from "date-fns/locale";
 
 export default function Table(props: TableProps) {

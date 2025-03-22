@@ -1,132 +1,88 @@
 'use client'
-import Announcement from "@/components/Announcement/Announcement";
-import Booking from "@/components/Booking/Booking";
-import Crokis from "@/components/Crokis/Crokis";
+import CarouselAnnouncement from "@/components/CarouselAnnouncement/CarouselAnnouncement";
 import Deports from "@/components/Deports/Deports";
-import ImageDeport from "@/components/ImageDeport/ImageDeport";
-import LazyLoad from "@/components/LazyLoad/LazyLoad";
-import Logo from "@/components/Logo/Logo";
-import Navbar from "@/components/Navbar/Navbar";
-import NavbarMd from "@/components/NavbarMd/NavbarMd";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Facebook, Menu } from "lucide-react";
+import Fields from "@/components/Fields/Fields";
+import { Facebook, } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 
 export default function Home() {
 
-  const [isEmpty, setIsEmpty] = useState(false);
   return (
-    <div className="h-svh bg-fondo bg-no-repeat relative bg-cover bg-center">
-      <div className="absolute inset-0 w-full h-full bg-black opacity-50"></div>
-      <Announcement onEmpty={setIsEmpty} />
-      <div className="relative z-10">
-        <div className="hidden lg:block">
-          <Navbar />
-        </div>
-        <div className="lg:hidden bg-red-50d flex items-center justify-between w-svw  h-20 px-5  pr-8">
-          <Logo />
-          <Sheet>
-            <SheetTrigger>
-              <Menu strokeWidth={2} className="text-white text-3xl" />
-            </SheetTrigger>
-            <SheetContent className="bg-gray-800">
-              <div className="">
-                <NavbarMd />
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
+    <div className="min-h-svh relative bg-brown-100/60 mt-[64px] pt-4 md:pt-0 md:mt-0">
+      <div className="relative  z-10">
         <section
           id="Inicio"
-          className="h-[calc(100svh-80px)] lg:h-svh relative flex items-center"
+          className="h-[calc(100svh-80px)]  lg:h-svh relative flex items-center"
         >
-          <div className="relative z-10 flex justify-start items-center h-full w-full ">
-            <div className="flex flex-col justify-center gap-y-16 items-center font-semibold rounded-full p-4 md:p-16 text-white">
-              <h1
-                data-aos="fade-down"
-                className="text-[50px] text-white font-bold text-shadow-neutro md:text-[100px] lg:text-[130px] font-julius p-0"
-              >
-                Phaqchas
-              </h1>
-              <p
-                data-aos="fade-down"
-                className="font-nunito text-shadow-heavy text-md md:text-xl md:max-w-2xl text-justify "
-              >
-                <span className="text-orange-700 uppercase">Phaqchas</span> -
-                Centro Deportivo es el lugar ideal para los amantes del deporte.
-                Contamos con canchas modernas y equipadas para voleibol, futsal
-                y otras disciplinas, ofreciendo un espacio perfecto para
-                entrenar, competir y disfrutar. Únete a nuestra comunidad
-                deportiva y vive la pasión del deporte en Phaqchas.
-              </p>
-              <button className="bg-green-600 hover:bg-green-700 transition-all shadow-3xl text-xl md:text-3xl px-4 md:px-8 py-2 font-Bebas-Neue text-white rounded-lg">
-                <Link href="#Disponibilidad">Consultar disponibilidad</Link>
-              </button>
+          <div className="grid md:grid-cols-2 items-center gap-4 h-full w-full mx-auto px-4 mb-96 md:mb-0">
+            <div className="flex flex-col justify-center gap-y-16  items-center font-semibold rounded-full p-4 md:p-16 text-white">
+              <div className="flex flex-col gap-y-4">
+                <h1
+                  data-aos="fade-down"
+                  className="text-5xl text-black font-bold text-start text-shadow-neutro font-nunito p-0"
+                >
+                  Phaqchas
+                </h1>
+                <p
+                  data-aos="fade-down"
+                  className="font-nunito text-gray-700 text-md md:text-xl md:max-w-2xl text-justify "
+                >
+                  El lugar ideal para los amantes del deporte.
+                  Contamos con canchas modernas y equipadas para voleibol, futsal
+                  y otras disciplinas, ofreciendo un espacio perfecto para
+                  entrenar, competir y disfrutar. Únete a nuestra comunidad
+                  deportiva y vive la pasión del deporte en Phaqchas.
+                </p>
+              </div>
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                <Link href="reservations" className="bg-green-600 hover:bg-green-700 transition-all border shadow-3xl text-xl px-4 md:px-8 py-2 font-nunito text-white rounded-lg">
+                  Ver reservas
+                </Link>
+                <Link href="#Anuncio" className="text-brown-600 hover:text-brown-700 transition-all cursor-pointer hover:textlg underline">Visualize todos nuetros anuncios y comunicados</Link>
+              </div>
+            </div>
+            <div className="flex items-center justify-center">
+              <Image src="/assets/voley.svg" alt="" width={500} height={500} className="shadown-xl mix-blend-multiply"/>
             </div>
           </div>
         </section>
-        <div className="h-auto bg-green-600 flex items-center justify-center">
-          <span
+        <section id="Anuncio" className="pt-4 mt-32 mb:mt-10">
+          <h3
             data-aos="fade-up"
-            className="text-white text-xl md:text-3xl text-center py-2"
+            className="text-brown-800 text-2xl font-bold md:text-3xl text-center py-2"
           >
-            Deportes y juegos
-          </span>
-        </div>
-        <LazyLoad>
-          <section
-            data-aos="fade-up"
-            id="Deportes"
-            className="px-8 pb-8 bg-white"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-blue-950 gap-4 items-center">
-              <div className="mg:col-span:1 lg:col-span-2">
-                <Deports />
-              </div>
-            </div>
-          </section>
-        </LazyLoad>
-        <div className="h-auto bg-green-600 flex items-center justify-center">
-          <span
-            data-aos="fade-up"
-            className="text-white text-xl md:text-3xl text-center py-2"
-          >
-            Visualiza tiempos disponibles este mes
-          </span>
-        </div>
-
-        <section id="Disponibilidad" className="bg-white">
-          <LazyLoad>
-            <div className="py-4 px-2  flex gap-2 items-center">
-              <Booking id={1} field="Campo 1" />
-            </div>
-          </LazyLoad>
-          <LazyLoad>
-            <div className="py-4 px-2 flex gap-2 items-center">
-              <Booking id={2} field="Campo 2" />
-            </div>
-          </LazyLoad>
-          <LazyLoad>
-            <div className="py-4 px-2 flex gap-2 items-center">
-              <Booking id={3} field="Campo 3" />
-            </div>
-          </LazyLoad>
-          <LazyLoad>
-            <div className="py-4 px-2  flex gap-2 items-center">
-              <Booking id={4} field="Campo 4" />
-            </div>
-          </LazyLoad>
+            Anuncios y comunicados
+          </h3>
+            <CarouselAnnouncement />
         </section>
-        <div className="h-auto bg-green-600 w-full flex items-center justify-center mt-4">
-          <span
+        <section id="Deportes" className="pt-4">
+          <h3
             data-aos="fade-up"
-            className="text-white text-center text-xl md:text-3xl py-2"
+            className="text-brown-800 text-2xl font-bold md:text-3xl text-center py-2"
+          >
+            Deportes en nuestro local
+          </h3>
+            <Deports />
+        </section>
+        <section id="Campos" className="pt-4">
+          <h3
+            data-aos="fade-up"
+            className="text-brown-800 text-2xl font-bold md:text-3xl text-center py-2"
+          >
+            Todos nuestros campos y otros
+          </h3>
+            <Fields />
+        </section>
+      
+        <div className="h-auto w-full flex items-center justify-center mt-4">
+        <h3
+            data-aos="fade-up"
+            className="text-brown-800 text-2xl font-bold md:text-3xl text-center py-2"
           >
             Nos puedes encontrar en...
-          </span>
+          </h3>
         </div>
-        <LazyLoad>
           <section
             id="DondeEstamos"
             className="h-svh flex flex-col items-center py-14 gap-14"
@@ -169,10 +125,8 @@ export default function Home() {
               </div>
             </div>
           </section>
-        </LazyLoad>
         <footer className="bg-blue-950 w-full py-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white text-center md:text-left md:px-16">
-            {/* Redes Sociales */}
             <div className="flex flex-col justify-center md:items-start gap-4">
               <span className="text-lg font-semibold">
                 Nuestras redes sociales
@@ -195,7 +149,6 @@ export default function Home() {
               </a>
             </div>
 
-            {/* Información de contacto */}
             <div className="flex flex-col items-center md:items-start gap-4">
               <span className="text-lg font-semibold">Más información</span>
               <span>Reserve al número: 987654321</span>

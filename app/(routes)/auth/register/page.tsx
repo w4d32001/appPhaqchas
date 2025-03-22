@@ -156,7 +156,7 @@ export default function Page() {
         </div>
         <div className="hidden h-auto col-span-2 lg:flex  items-center">
           <img
-            src="/assets/voley1.jpeg"
+            src="/assets/voley1.webp"
             alt=""
             className="h-[calc(100vh-2px)] w-full object-cover rounded-lg shadow-xl"
           />
