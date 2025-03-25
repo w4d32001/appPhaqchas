@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function Home() {
 
   return (
-    <div className="min-h-svh relative bg-brown-100/60 mt-[64px] pt-4 md:pt-0 md:mt-0">
+    <div className="min-h-svh relative bg-brown-200/60 mt-[64px] pt-4 md:pt-0 md:mt-0">
       <div className="relative  z-10">
         <section
           id="Inicio"
@@ -20,7 +20,7 @@ export default function Home() {
               <div className="flex flex-col gap-y-4">
                 <h1
                   data-aos="fade-down"
-                  className="text-5xl text-black font-bold text-start text-shadow-neutro font-nunito p-0"
+                  className="text-5xl text-black font-bold text-start text-shadow-neutro font-nunito p-0 uppercase"
                 >
                   Phaqchas
                 </h1>
@@ -37,7 +37,7 @@ export default function Home() {
               </div>
               <div className="flex flex-col md:flex-row items-center justify-between gap-4">
                 <Link href="reservations" className="bg-green-600 hover:bg-green-700 transition-all border shadow-3xl text-xl px-4 md:px-8 py-2 font-nunito text-white rounded-lg">
-                  Ver reservas
+                  Reservas
                 </Link>
                 <Link href="#Anuncio" className="text-brown-600 hover:text-brown-700 transition-all cursor-pointer hover:textlg underline">Visualize todos nuetros anuncios y comunicados</Link>
               </div>

@@ -1,8 +1,5 @@
 import {
-  fetchUserData,
-  loginUser,
   registerUser,
-  User,
 } from "@/services/auth.service";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -11,7 +8,6 @@ import { BackendError } from "./useAuth";
 import { format } from "date-fns";
 
 export const useRegister = () => {
-  const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
   const [dni, setDni] = useState("");
   const [name, setName] = useState("");
@@ -20,7 +16,6 @@ export const useRegister = () => {
   const [birthDate, setBirthDate] = useState<Date | undefined>(undefined);
   const router = useRouter();
   const [errors, setErrors] = useState({
-    password: "",
     phone: "",
     dni: "",
     name: "",
@@ -31,7 +26,6 @@ export const useRegister = () => {
   });
   const validateInputs = (): boolean => {
     const newErrors = {
-      password: "",
       phone: "",
       dni: "",
       name: "",
@@ -41,11 +35,6 @@ export const useRegister = () => {
       birthDate: "",
     };
 
-    if (!password.trim()) {
-      newErrors.password = "La contraseña es obligatoria.";
-    } else if (password.length < 8) {
-      newErrors.password = "La contraseña debe tener al menos 8 caracteres.";
-    }
 
     if (!phone.trim()) {
       newErrors.phone = "El celular es obligatorio.";
@@ -81,7 +70,6 @@ export const useRegister = () => {
     const formattedBirthDate = birthDate ? format(birthDate, "yyyy-MM-dd") : "";
   
     const data = {
-      password,
       phone,
       dni,
       name,
@@ -102,12 +90,7 @@ export const useRegister = () => {
         timerProgressBar: true,
       });
   
-      const { access_token } = await loginUser(dni, password);
-  
-      localStorage.setItem("token", access_token);
-  
-      const userData = await fetchUserData(access_token);
-      localStorage.setItem("user", JSON.stringify(userData));
+      
   
       router.push("/");
     } catch (error: unknown) {
@@ -134,8 +117,6 @@ export const useRegister = () => {
   };
 
   return {
-    password,
-    setPassword,
     phone,
     setPhone,
     dni,

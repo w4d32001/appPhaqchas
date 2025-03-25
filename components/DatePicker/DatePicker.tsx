@@ -26,7 +26,7 @@ export default function DatePicker(props: DatePickerProps) {
         <Button
           variant="outline"
           className={cn(
-            "w-[240px] justify-start text-gray-900 text-left font-normal",
+            "w-full justify-start text-gray-900 text-left font-normal py-4 px-4",
             !value && "text-muted-foreground text-gray-900"
           )}
         >
@@ -36,7 +36,6 @@ export default function DatePicker(props: DatePickerProps) {
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
         <div className="flex items-center justify-between p-2 border-b bg-gray-100">
-          {/* Selector de Mes */}
           <Select onValueChange={(val) => setMonth(new Date(month.getFullYear(), parseInt(val)))}>
             <SelectTrigger className="w-[120px] text-sm">
               <SelectValue placeholder={months[month.getMonth()]} />

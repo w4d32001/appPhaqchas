@@ -26,7 +26,7 @@ export default function Table(props: TableProps) {
       try {
         setLoading(true);
         const response = await fetch(
-          `${apiUrl}/bookingsForLandingPage/${id}/${start}/${end}`
+          `${apiUrl}/bookingsForLandingPage/${id}/${start}`
         );
         if (!response.ok) {
           throw new Error("Error al obtener los datos");
@@ -48,7 +48,7 @@ export default function Table(props: TableProps) {
 
   function getColorClass(value: string) {
     const colors: Record<string, string> = {
-      disponible: "bg-white text-green-700 font-bold",
+      disponible: "bg-white text-black font-bold",
       reservado: "bg-[#39AA29]",
       "en espera": "bg-yellow-500",
       completado: "bg-red-600",
@@ -66,9 +66,9 @@ export default function Table(props: TableProps) {
       <thead>
         <tr>
           <th></th>
-          <th className="border px-4 py-2 bg-orange-600">Hora</th>
+          <th className="border px-4 py-2 bg-brown-500 text-white">Hora</th>
           {weekDays.map((day, index) => (
-            <th key={index} className="border px-4 py-2 bg-orange-500">
+            <th key={index} className="border px-4 py-2 bg-brown-500">
               {day}
               <br />
               {weekDates[index]}
@@ -80,13 +80,13 @@ export default function Table(props: TableProps) {
         {data.map((item, index) => (
           <tr key={index}>
             {index === 0 && (
-              <td rowSpan={data.length} className="border bg-orange-700 w-20">
+              <td rowSpan={data.length} className="border bg-brown-600 w-20">
                 <div className="w-20 h-full rotate-90 text-gray-100 flex items-center justify-center">
                   {field}
                 </div>
               </td>
             )}
-            <td className="border px-4 py-2 text-xs bg-orange-500 text-center">
+            <td className="border px-4 py-2 text-xs bg-brown-300 text-gray-900 font-bold text-center">
               {item.hour}
             </td>
             {Object.keys(item)

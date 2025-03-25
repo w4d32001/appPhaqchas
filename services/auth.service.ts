@@ -23,7 +23,7 @@ export const loginUser = async (dni: string, password: string) => {
 
 export type User = {
   dni: string;
-  password: string;
+  password?: string;
   phone: string;
   name: string;
   surname: string;
@@ -32,14 +32,13 @@ export type User = {
 }
 
 export const registerUser = async (data: User) => {
-  const response = await fetch(`${apiUrl}/auth/register`, {
+  const response = await fetch(`${apiUrl}/user`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
       dni: data.dni,
-      password: data.password,
       phone: data.phone,
       name: data.name,
       surname: data.surname,
